@@ -4,7 +4,7 @@ LATEX   := pdflatex
 
 default: TheoreticalNeuroscience.pdf
 
-%.pdf : %.tex png sec 
+%.pdf : %.tex png chap
 	$(LATEX) $<
 	$(LATEX) $<
 
