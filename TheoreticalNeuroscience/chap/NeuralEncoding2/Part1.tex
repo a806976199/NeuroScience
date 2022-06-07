@@ -1,33 +1,35 @@
-\section{2.1}
-\label{sec:2.1}
 
-% \begin{defn}
-%   The \emph{angular momentum},
-%   also called \emph{moment of momentum} $\mathbf{L}$,
-%   is the cross product of a moment arm $\mathbf{r}$ and
-%   the linear momentum $m \mathbf{V}$ of a fluid particle,
-%   i.e.,
-%   \begin{equation}
-%     \mathbf{L} = \mathbf{r}\times m\mathbf{V}.
-%   \end{equation}
-% \end{defn}
-% \begin{center}
-%   \includegraphics[scale=0.45]{./png/angularMomentumDefn}
-% \end{center}
+%\begin{rem}
+ % The spike-triggered average stimulus introduced in chapter 1
+  %is a standard way of characterizing the selectivity of a neuron.
+%\end{rem}
 
-\begin{prin}[Conservation of angular momentum]
-  \label{prin:angularMomentum}
-  The rate of change of angular momentum of a system is equal to
-  the net torque acting on the system,
-  i.e.,
-  \begin{equation}
-    \frac{\dif \mathbf{L}}{\dif t} = \boldsymbol\tau,
-  \end{equation}
-  where $\boldsymbol\tau$ is the torque of all external forces on the system
-  about any chosen axis,
-  and $\dif \mathbf{L}/\dif t$ is the rate of change of
-  angular momentum of the system about the same axis.
-\end{prin}
+\begin{ntn}
+  \label{ntn:reverse-correlation}
+  \emph{Reverse-correlation} is a technique for studying
+  how sensory neurons add up signals from different locations
+  in their receptive fields, and also how they sum up stimuli
+  that they receive at different times, to generate a response.
+\end{ntn}
+
+\begin{rem}
+  The goal of the reverse-correlation technique is to find a function $r = f(s)$ that maps from the stimulus $s$ to the neuronal response $r$, where the stimulus is a function dependent on spatial location and time $s = s(x,y,z,t)$. 
+\end{rem}
+
+\begin{rem}
+  The reason that this technique is called "reverse" is that we align the time origin with the neuron's response and then reverse the timeline to find what stimulus ($t<0$) triggered the neuron's response at the current moment ($t=0$).
+\end{rem}
+
+\begin{ntn}%%?????whether can I do this notation?
+  \label{ntn: typesOfModels}
+  \emph{Descriptive Models} approximate descriptions of neural responses,
+  and do not explain how visual responses arise from the synaptic,
+  cellular, and network properties of neoral circuits.
+  Nevertheless, they provide an important framework for characterizing response selectivities,
+  a reference point for identifying and characterizing novel effects,
+  and a basis for building mechanistic models,
+  some of which are discussed at the end of this chapter.
+\end{ntn}
 
 %%% Local Variables:
 %%% mode: latex

@@ -1,5 +1,74 @@
-\section{2.2}
-\label{sec:2.2}
+\section{Estimating Firing Rates}
+\label{sec:EstimatingFiringRates}
+
+\begin{rem}
+  The response tuning curve discussed in Chapter \ref{cha:Neural Encoding I} is a simple model in which firing rates were estimated as instantaneous functions of the stimulus. Nevertheless, the activity of a neuron at time t typically depends on the behavior of the stimulus over a period of time starting a few hundred milliseconds prior to t and ending perhaps tens of milliseconds before t. Reverse-correlation methods can be used to construct a more accurate model that includes the effects of the stimulus over such an extended period of time.
+\end{rem}
+
+\begin{asm}
+  \label{asm:stimulus}
+  As discussed in chapter \ref{cha:Neural Encoding I}, sensory systems tend to adapt to the absolute intensity of a stimulus. We therefore assume throughout this chapter that the stimulus parameter $s(t)$ has been defined with its mean value subtracted out, that is,
+  \begin{equation}
+    \label{equ:adaptionAssumption}
+    \frac{1}{T}\int_0^Ts(t)dt = 0.
+  \end{equation}
+\end{asm}
+
+\begin{rem}
+  The \textbf{basic problem} is to construct an estimate $r_{est}(t)$ of the firing rate $r(t)$ evoked by a stimulus $s(t)$.
+\end{rem}
+
+\begin{defn}
+  \label{def:linearEstimate}
+  The \emph{linear estimate} of the firing rate at any given time $t$ is the weighted sum of the values taken by the stimulus at earlier times. With the continuous change in time, this sum actually takes the form of an integral, that is,
+  \begin{equation}
+    \label{equ:2.1}
+    r_{est}(t) = r_0 + \int_0^{\infty}D(\tau) s(t-\tau)d\tau,
+  \end{equation}
+  where $r_0$ accounts for any background firing that may occur when $s = 0$, $D(\tau)$ is a weighting factor that determines how strongly,  and with what sign, the value of the stimulus at time $t-\tau$ affects the firing rate at time $t$.
+\end{defn}
+
+\begin{rem}
+  The integral in equation \ref{equ:2.1} is a linear filter.
+\end{rem}
+
+\begin{defn}
+  The \emph{error} of an estimate $r_{est}(t)$ is defined as
+  \begin{equation}
+    \label{equ:2.3}
+    E = \frac{1}{T}\int_0^T(r_{est}(t)-r(t))^2dt.
+  \end{equation}
+\end{defn}
+
+\begin{defn}
+  The \emph{optimal kernel} is the kernel $D$ that minimizes the error $E$ defined in equation \ref{equ:2.3}. $D$ is called the \emph{optimal linear kernel} if it minimizes the error of the linear estimate.
+\end{defn}
+
+\begin{rem}
+  Finding the extrema of functionals is the subject of a branch of mathematics called the calculus of variations. A simple way to define a functional derivative is to introduce a small time interval $\Delta t$ and
+evaluate all functions at integer multiples of $\Delta t$.
+\end{rem}
+
+\begin{prop}
+  The optimal linear kernel $D$ satisfies
+  \begin{equation}
+    \label{equ:2.4}
+    \int_0^{\infty}Q_{ss}(\tau-\tau')D(\tau')d\tau' = Q_{rs}(-\tau),
+  \end{equation}
+  where $Q_{ss}(\tau) = \int s(t)s(t+\tau)/T$ is the stimulus autocorrelation function, and $Q_{rs}(\tau) = \int r(t)s(t+\tau)/T$ is the firing rate-stimulus correlation function, both of which were defined in chapter \ref{cha:Neural Encoding I}.
+\end{prop}
+\begin{solution}
+  Using equation \ref{equ:2.1} for the estimated firing rate, the expression in eqution \ref{equ:2.3} to be minimized is
+  \begin{equation}
+    \label{equ:2.48}
+    E = \frac{1}{T}\int_0^T\left(r_0 + \int_0^{\infty}D(\tau) s(t-\tau)d\tau - r(t)\right)^2.
+  \end{equation}
+  The minimum is obtained by setting the derivative of $E$ with respect to functional derivative the function $D$ to $0$.
+\end{solution}
+
+
+
+
 
 % \begin{rem}
 %   The fundamental problem of tensor analysis is to
