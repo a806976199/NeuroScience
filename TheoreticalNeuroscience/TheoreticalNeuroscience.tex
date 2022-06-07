@@ -1,0 +1,172 @@
+\documentclass[letterpaper,oneside]{book}
+
+\usepackage{geometry}
+% make full use of A4 papers
+\geometry{margin=1.5cm, vmargin={0pt,1cm}}
+\setlength{\topmargin}{-1cm}
+\setlength{\paperheight}{29.7cm}
+\setlength{\textheight}{25.1cm}
+
+% auto adjust the marginals
+\usepackage{marginfix}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{CJKutf8}   % for Chinese characters
+\usepackage{enumerate}
+\usepackage{graphicx}  % for figures
+\usepackage{layout}
+\usepackage{multicol}  % multiple columns to reduce number of pages
+\usepackage{mathrsfs}  
+\usepackage{fancyhdr}
+\usepackage{subfigure}
+\usepackage{tcolorbox}
+\usepackage{tikz-cd}
+\usepackage{gensymb}
+\usepackage{upgreek}
+\usepackage{dsfont}
+
+%------------------
+% common commands %
+%------------------
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\Dim}{\mathrm{D}}
+\newcommand{\avg}[1]{\left\langle #1 \right\rangle}
+\newcommand{\xibold}{\boldsymbol{\xi}}
+\newcommand{\varphibold}{\boldsymbol{\varphi}}
+\newcommand{\psibold}{\boldsymbol{\psi}}
+\newcommand{\RE}{{\text{Re}}}
+
+% this environment is for solutions of examples and exercises
+\newenvironment{solution}%
+{\noindent\textbf{Solution.}}%
+{\qedhere}
+% the following command is for disabling environments
+%  so that their contents do not show up in the pdf.
+\makeatletter
+\newcommand{\voidenvironment}[1]{%
+  \expandafter\providecommand\csname env@#1@save@env\endcsname{}%
+  \expandafter\providecommand\csname env@#1@process\endcsname{}%
+  \@ifundefined{#1}{}{\RenewEnviron{#1}{}}%
+}
+\makeatother
+
+%----------------------------------------
+% theorem and theorem-like environments %
+%----------------------------------------
+\numberwithin{equation}{chapter}
+\theoremstyle{definition}
+
+\newtheorem{thm}{Theorem}[chapter]
+\newtheorem{alg}[thm]{Algorithm}
+\newtheorem{asm}[thm]{Assumption}
+\newtheorem{axm}[thm]{Axiom}
+\newtheorem{coro}[thm]{Corollary}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{exm}[thm]{Example}
+\newtheorem{exc}[thm]{Exercise}
+\newtheorem{frm}[thm]{Formula}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{ntn}{Notation}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{rem}{Remark}[chapter]
+\newtheorem{rul}[thm]{Rule}
+\newtheorem{prin}[thm]{Principle}
+
+\begin{document}
+\pagestyle{empty}
+\pagenumbering{roman}
+
+%\tableofcontents
+%\clearpage
+
+\pagestyle{fancy}
+\fancyhead{}
+\lhead{Yang Li}
+\chead{Notes on Fluid Mechanics}
+\rhead{2020}
+
+%\setcounter{chapter}{-1}
+\pagenumbering{arabic}
+% \setcounter{page}{0}
+
+% --------------------------------------------------------
+% uncomment the following to remove these environments 
+%  to generate handouts for students.
+% --------------------------------------------------------
+%\begingroup
+%\voidenvironment{rem}%
+%\voidenvironment{proof}%
+%\voidenvironment{solution}%
+
+% each chapter is factored into a separate file.
+
+\chapter{ Neural Encoding I: Firing Rates and Spike Statistics}
+\label{cha:Neural Encoding I}
+
+\begin{multicols}{2}
+\setlength{\columnseprule}{0.2pt}  
+
+\input{sec/NeuralEncoding1/Part1}
+
+\input{sec/NeuralEncoding1/Part2}
+
+\input{sec/NeuralEncoding1/Part3}
+
+\input{sec/NeuralEncoding1/Part4}
+
+\end{multicols}
+
+\chapter{ Neural Encoding II: Reverse Correlation and Visual Receptive Fields}
+\label{cha:Neural Encoding II}
+
+\begin{multicols}{2}
+\setlength{\columnseprule}{0.2pt}  
+
+\input{sec/NeuralEncoding2/Part1}
+
+\input{sec/NeuralEncoding2/Part2}
+
+\input{sec/NeuralEncoding2/Part3}
+
+\input{sec/NeuralEncoding2/Part4}
+
+\end{multicols}
+
+\chapter{ Neural Decoding}
+\label{cha:Neural Decoding}
+
+\begin{multicols}{2}
+\setlength{\columnseprule}{0.2pt}  
+
+\input{sec/NeuralDecoding/Part1}
+
+\input{sec/NeuralDecoding/Part2}
+
+\input{sec/NeuralDecoding/Part3}
+
+\input{sec/NeuralDecoding/Part4}
+
+\end{multicols}
+
+%\input{sec/GePUPSpatialDiscretization}
+
+\clearpage
+
+\appendix
+
+
+%\bibliography{bib/numericalApprox}
+%\bibliographystyle{abbrv}
+%\bibliographystyle{abbrvnat}
+%\setcitestyle{authoryear,open={[},close={]}}
+
+\end{document}
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

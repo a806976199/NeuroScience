@@ -1,0 +1,35 @@
+\section{1.2}
+\label{sec:1.2}
+
+% \begin{rem}
+%   The fundamental problem of tensor analysis is to
+%   separate results related to geometric and physical objects themselves,
+%   from the influence of the arbitrarily chosen coordinate system.
+% \end{rem}
+
+\begin{rem}
+  Many physical laws are cumbersome
+  when written in coordinate form
+  but become more compact and attractive looking
+  when written in tensorial form.
+  For example,
+  the incompressible Navier-Stokes equations in cylindrical coordinates are
+  \begin{align*}
+    \rho\left(\frac{Dv_r}{Dt}-\frac{v_{\theta}^2}{r}\right) &= \rho f_r-\frac{\partial p}{\partial r} + \mu\left(\Delta v_r-\frac{v_r}{r^2}-\frac{2}{r^2}\frac{\partial v_{\theta}}{\partial \theta}\right), \\
+    \rho\left(\frac{Dv_{\theta}}{Dt}+\frac{v_rv_{\theta}}{r}\right) &= \rho f_{\theta}-\frac{1}{r}\frac{\partial p}{\partial\theta} + \mu\left(\Delta v_{\theta}+\frac{2}{r^2}\frac{\partial v_r}{\partial\theta}-\frac{v_{\theta}}{r^2}\right), \\
+    \rho \frac{Dv_z}{Dt} &= \rho f_z-\frac{\partial p}{\partial z}+\mu\Delta v_z,
+  \end{align*}
+  where
+  \begin{equation*}
+    \Delta = \frac{1}{r}\frac{\partial}{\partial r}\left(r \frac{\partial}{\partial r}\right)+\frac{1}{r^2}\frac{\partial^2}{\partial \theta^2}+\frac{\partial^2}{\partial z^2},
+  \end{equation*}
+  and
+  \begin{equation*}
+    \frac{D}{Dt} = \frac{\partial}{\partial t}+v_r \frac{\partial}{\partial r}+\frac{v_{\theta}}{r}\frac{\partial}{\partial\theta}+v_z \frac{\partial}{\partial z}.
+  \end{equation*}
+\end{rem}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../notesOnFluidMechanics"
+%%% End:
