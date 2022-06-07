@@ -9,6 +9,10 @@
   is a standard way of characterizing the selectivity of a neuron.
 \end{rem}
 
+\begin{defn}
+  
+\end{defn}
+
 \input{chap/NeuralEncoding2/Part1}
 
 \input{chap/NeuralEncoding2/Part2}
