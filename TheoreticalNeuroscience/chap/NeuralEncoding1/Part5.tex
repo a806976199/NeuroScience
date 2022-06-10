@@ -1,19 +1,194 @@
-\section{1.5}
-\label{sec:1.5}
+\documentclass[letterpaper,oneside]{book}
 
-\begin{asm}
-  \label{asm:surfaceForceViscous}
-  From now on,
-  assume that
-  \begin{equation}
-    \label{eq:surfaceForceSigma}
-    \text{force on $S$ per unit area} = -p(\mathbf{x},t)\mathbf{n}+\mathbf{n}\cdot\boldsymbol\sigma(\mathbf{x},t),
-  \end{equation}
-  where $\boldsymbol\sigma$ is the \emph{(deviatoric) stress tensor} and
-  $\mathbf{n}$ is the unit outward normal of $S$.
-\end{asm}
+\usepackage{geometry}
+% make full use of A4 papers
+\geometry{margin=1.5cm, vmargin={0pt,1cm}}
+\setlength{\topmargin}{-1cm}
+\setlength{\paperheight}{29.7cm}
+\setlength{\textheight}{25.1cm}
+
+% auto adjust the marginals
+%\usepackage{marginfix}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{CJKutf8}   % for Chinese characters
+\usepackage{enumerate}
+\usepackage{graphicx}  % for figures
+\usepackage{layout}
+\usepackage{multicol}  % multiple columns to reduce number of pages
+\usepackage{mathrsfs}
+\usepackage{fancyhdr}
+\usepackage{subfigure}
+\usepackage{tcolorbox}
+\usepackage{tikz-cd}
+\usepackage{gensymb}
+\usepackage{upgreek}
+\usepackage{dsfont}
+
+%------------------
+% common commands %
+%------------------
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\Dim}{\mathrm{D}}
+\newcommand{\avg}[1]{\left\langle #1 \right\rangle}
+\newcommand{\xibold}{\boldsymbol{\xi}}
+\newcommand{\varphibold}{\boldsymbol{\varphi}}
+\newcommand{\psibold}{\boldsymbol{\psi}}
+\newcommand{\RE}{{\text{Re}}}
+
+% this environment is for solutions of examples and exercises
+\newenvironment{solution}%
+{\noindent\textbf{Solution.}}%
+{\qedhere}
+% the following command is for disabling environments
+%  so that their contents do not show up in the pdf.
+\makeatletter
+\newcommand{\voidenvironment}[1]{%
+  \expandafter\providecommand\csname env@#1@save@env\endcsname{}%
+  \expandafter\providecommand\csname env@#1@process\endcsname{}%
+  \@ifundefined{#1}{}{\RenewEnviron{#1}{}}%
+}
+\makeatother
+
+%----------------------------------------
+% theorem and theorem-like environments %
+%----------------------------------------
+\numberwithin{equation}{chapter}
+\theoremstyle{definition}
+
+\newtheorem{thm}{Theorem}[chapter]
+\newtheorem{alg}[thm]{Algorithm}
+\newtheorem{asm}[thm]{Assumption}
+\newtheorem{axm}[thm]{Axiom}
+\newtheorem{coro}[thm]{Corollary}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{exm}[thm]{Example}
+\newtheorem{exc}[thm]{Exercise}
+\newtheorem{frm}[thm]{Formula}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{ntn}{Notation}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{rem}{Remark}[chapter]
+\newtheorem{rul}[thm]{Rule}
+\newtheorem{prin}[thm]{Principle}
+%\newtheorem{ter}[thm]{Term]
+
+\begin{document}
+\pagestyle{empty}
+\pagenumbering{roman}
+
+%\tableofcontents
+%\clearpage
+
+\pagestyle{fancy}
+\fancyhead{}
+\lhead{Yang Li}
+\chead{Computational and Mathematical Modeling of Neural Systems}
+\rhead{2020}
+
+%\setcounter{chapter}{-1}
+\pagenumbering{arabic}
+% \setcounter{page}{0}
+
+% --------------------------------------------------------
+% uncomment the following to remove these environments
+%  to generate handouts for students.
+% --------------------------------------------------------
+%\begingroup
+%\voidenvironment{rem}%
+%\voidenvironment{proof}%
+%\voidenvironment{solution}%
+
+% each chapter is factored into a separate file.
+
+\chapter{Neural Encoding I:\\
+Firing Rates and Spike Statistics}
+\label{cha:equations-motion}
+
+\begin{multicols}{2}
+\setlength{\columnseprule}{0.2pt}
+\section{The Neural code}
+\exm Assuming that the neural response and its relation to the stimulus are completely characterized by the probability distribution of spike times as a function of the stimulus. If spike generation can be described as an inhomogeneous Poisson process, this probability distribution can be computed from the time-dependent firing rate r(t), using equation 1.37.In this case, r(t) contains all the information about the stimulus that can be extracted from the spike train, and the neural code could reasonably be called a rate code.
+\rem The central issue in neural coding is whether individual action potentials and individual neurons encode independently of each other,or whether correlations between different spikes and different neurons carry significant amounts of information.
+\subsection{Independent-Spike,Independent-Neuron,and Correlation Codes}
+\defn (Independent-Spike Code)A code based solely on the time-dependent firing rate. This refers to the fact that the generation of each spike is independent of all the other spikes in the train.
+\defn (Correlation Codes)Individual spikes do not encode independently of each other,correlations between spike times may carry additional correlation code information.
+\exm It has been found that some information is carried by correlations between two or more spikes, but this information is rarely larger than 10$\%$ of the information carried by spikes considered independently.
+\rem  Information could be carried by more complex relationships between spikes.Independent-spike codes are much simpler to analyze than correlation
+codes, and most work on neural coding assumes spike independence.
+\ntn  Information is typically encoded by neuronal populations. We still consider whether individual neurons act independently, or whether correlations between different neurons carry additional information.
+\defn (Independent-Neuron)The response of each neuron is considered statistically independent,it means that they can be combined without taking correlations into account.
+\rem  The assumption of independent-neuron coding is a useful simplification that is not in gross contradiction with experimental data,but it is less well established and more likely to be challenged in the future than the independent-spike hypothesis.
+\ntn Synchronous firing of two or more neurons is one mechanism for conveying information in a population correlation code.Rhythmic oscillations of population activity provide another possible mechanism.
+\exm Place-cell coding of spatial location in the rat hippocampus,which at least some additional information appears to be carried by correlations between the firing patterns of neurons in a population.
+\subsection{Temporal Codes}
+\ntn Precise spike timing is a significant element in neural encoding. When precise spike timing or high-frequency firing-rate fluctuations are found to carry information, the neural code is often identified as a temporal code.
+\rem The temporal structure of a spike train or firing rate evoked by a stimulus is determined both by the dynamics of the stimulus and by the nature of the neural encoding process.Stimuli that change rapidly tend to generate precisely timed spikes and rapidly changing firing rates.
+\ntn Temporal coding refers to temporal precision in the response that not only arise from the dynamics of the stimulus but also relates to properties of the stimulus.
+\rem If the independent-spike hypothesis is valid, the temporal character of the neural code is determined by the behavior of r(t).
+\defn If r(t) varies slowly with time, the code is typically called a rate code, and if it varies rapidly, the code is called temporal.
+\rem It is not obvious what criterion should be used to characterize the changes in r(t)as slow or rapid.The identification of rate and temporal coding in this way is ambiguous.
+\defn Using the spikes to distinguish slow from rapid, so that a temporal code is identified when peaks in the firing rate occur with roughly the same frequency as the spikes themselves.In this case, each peak corresponds to the firing of only one, or at most a few action potentials.
+\coro When many neurons are involved, any single neuron may fire only a few spikes before its firing rate changes, but the population may produce a large number of spikes over the same time period. Thus, time-coded neurons are not targeted at populations.
+\defn Using the stimulus to establish what makes a temporal code. In this case, a temporal code is defined as one in which information is carried by details of spike timing on a scale shorter than the fastest time characterizing variations of the stimulus.
+\coro This requires that frequencies higher than those present in the stimulus.
+\ntn A temporal code has been reported when using spikes to define the nature of the code,and it would be called rate codes if the stimulus
+were used instead.
+
+%\input{sec/fluidKinematics}
+
+
+%\input{sec/materialDerivative}
+
+%\input{sec/ReynoldsTransportThm}
+
+%\input{sec/incompressibility}
+
+%\input{sec/conservationOfMass}
+
+%\input{sec/EulerEquations}
+
+%\input{sec/CartesianTensors}
+
+%\input{sec/CauchyEquation}
+
+%\input{sec/angularMomentum}
+
+%\input{sec/constitutiveEquation}
+
+%\input{sec/NavierStokesEq}
+
+%\input{sec/dimensionalAnalysis}
+
+%\input{sec/GePUP}
+
+\end{multicols}
+
+%\input{sec/GePUPSpatialDiscretization}
+
+\clearpage
+
+\appendix
+
+
+%\bibliography{bib/numericalApprox}
+%\bibliographystyle{abbrv}
+%\bibliographystyle{abbrvnat}
+%\setcitestyle{authoryear,open={[},close={]}}
+
+\end{document}
+
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "../notesOnFluidMechanics"
+%%% TeX-master: t
 %%% End:
+
+
+
+
+
+
