@@ -1,113 +1,6 @@
-\documentclass[letterpaper,oneside]{book}
-
-\usepackage{geometry}
-% make full use of A4 papers
-\geometry{margin=1.5cm, vmargin={0pt,1cm}}
-\setlength{\topmargin}{-1cm}
-\setlength{\paperheight}{29.7cm}
-\setlength{\textheight}{25.1cm}
-
-% auto adjust the marginals
-\usepackage{marginfix}
-
-\usepackage{amsfonts}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{CJKutf8}   % for Chinese characters
-\usepackage{enumerate}
-\usepackage{graphicx}  % for figures
-\usepackage{layout}
-\usepackage{multicol}  % multiple columns to reduce number of pages
-\usepackage{mathrsfs}  
-\usepackage{fancyhdr}
-\usepackage{subfigure}
-\usepackage{tcolorbox}
-\usepackage{tikz-cd}
-\usepackage{gensymb}
-\usepackage{upgreek}
-\usepackage{dsfont}
-
-%------------------
-% common commands %
-%------------------
-\newcommand{\dif}{\mathrm{d}}
-\newcommand{\Dim}{\mathrm{D}}
-\newcommand{\avg}[1]{\left\langle #1 \right\rangle}
-\newcommand{\xibold}{\boldsymbol{\xi}}
-\newcommand{\varphibold}{\boldsymbol{\varphi}}
-\newcommand{\psibold}{\boldsymbol{\psi}}
-\newcommand{\RE}{{\text{Re}}}
-
-% this environment is for solutions of examples and exercises
-\newenvironment{solution}%
-{\noindent\textbf{Solution.}}%
-{\qedhere}
-% the following command is for disabling environments
-%  so that their contents do not show up in the pdf.
-\makeatletter
-\newcommand{\voidenvironment}[1]{%
-  \expandafter\providecommand\csname env@#1@save@env\endcsname{}%
-  \expandafter\providecommand\csname env@#1@process\endcsname{}%
-  \@ifundefined{#1}{}{\RenewEnviron{#1}{}}%
-}
-\makeatother
-
-%----------------------------------------
-% theorem and theorem-like environments %
-%----------------------------------------
-\numberwithin{equation}{chapter}
-\theoremstyle{definition}
-
-\newtheorem{thm}{Theorem}[chapter]
-\newtheorem{alg}[thm]{Algorithm}
-\newtheorem{asm}[thm]{Assumption}
-\newtheorem{axm}[thm]{Axiom}
-\newtheorem{coro}[thm]{Corollary}
-\newtheorem{defn}[thm]{Definition}
-\newtheorem{exm}[thm]{Example}
-\newtheorem{exc}[thm]{Exercise}
-\newtheorem{frm}[thm]{Formula}
-\newtheorem{lem}[thm]{Lemma}
-\newtheorem{ntn}{Notation}
-\newtheorem{prop}[thm]{Proposition}
-\newtheorem{rem}{Remark}[chapter]
-\newtheorem{rul}[thm]{Rule}
-\newtheorem{prin}[thm]{Principle}
-
-\begin{document}
-\pagestyle{empty}
-\pagenumbering{roman}
-
-%\tableofcontents
-%\clearpage
-
-\pagestyle{fancy}
-\fancyhead{}
-% \lhead{Yang Li}
-% \chead{Notes on Fluid Mechanics}
-% \rhead{2020}
-
-%\setcounter{chapter}{-1}
-\pagenumbering{arabic}
-% \setcounter{page}{0}
-
-% --------------------------------------------------------
-% uncomment the following to remove these environments 
-%  to generate handouts for students.
-% --------------------------------------------------------
-%\begingroup
-%\voidenvironment{rem}%
-%\voidenvironment{proof}%
-%\voidenvironment{solution}%
-
-% each chapter is factored into a separate file.
 
 \chapter{Neual Encoding:Firing Rates and Spike Statics}
 \label{cha:Firing Rates and Spike Statics}
-
-\begin{multicols}{2} 
-\setlength{\columnseprule}{0.2pt}  
 
 \section{Spike Trains and Firing Rate}
 \label{sec:firing rate}
@@ -146,16 +39,17 @@
     \label{equ:1.3}
     \int \delta(t-\tau)h(\tau)d\tau=h(t),
   \end{equation}
+  which provided that the limits of the integral surround the point $t$ (if they do not,
+  the integral is $0$).
   \begin{proof}
   It follows from
   \begin{equation*}
     %\lim_{\epsilon\rightarrow 0}\int_{-\infty}^{+\infty} \delta(t-\tau)h(\tau)d\tau=
     \lim_{\epsilon\rightarrow 0}\int_{t - \epsilon}^{t + \epsilon} \delta(t-\tau)h(\tau)d\tau
-    =h(t)\int_{t - \epsilon}^{t + \epsilon} \delta(t-\tau)d\tau=h(t)
+    =h(t)\int_{t - \epsilon}^{t + \epsilon} \delta(t-\tau)d\tau=h(t).
   \end{equation*}
   \end{proof}
-which provided that the limits of the integral surround the point $t$ (if they do not,
-  the integral is $0$).
+
 \end{lem}
 
 \begin{thm}
@@ -167,7 +61,7 @@ which provided that the limits of the integral surround the point $t$ (if they d
   \end{equation}
   where the integral is over the duration of the trial.
   \begin{proof}
-    The equation directly follows Equation \ref{equ:1.3}.
+    The equation directly follows from Equation \ref{equ:1.3}.
   \end{proof}
 \end{thm}
 
@@ -327,7 +221,7 @@ way to approximate r($t$).
 \end{ntn}
 \begin{center}
   \label{fig:1.4A}
-    \includegraphics[scale=0.048]{./png/fig:1.4A.jpg}
+    \includegraphics[scale=0.048]{./png/fig_1_4A.png}
   \end{center}
 
 \begin{alg}
@@ -349,7 +243,7 @@ resembling a histogram.
 
 \begin{center}
   \label{fig:1.4B}
-  \includegraphics[scale=0.053]{./png/fig:1.4B.jpg}
+  \includegraphics[scale=0.053]{./png/fig_1_4B.png}
 \end{center}
 
 \begin{lem}
@@ -408,7 +302,7 @@ by the discontinuous shape of the window function used.
 \end{exm}
 
 \begin{center}
-  \includegraphics[scale=0.054]{./png/fig:1.4C.jpg}
+  \includegraphics[scale=0.054]{./png/fig_1_4C.png}
 \end{center}
 
 \begin{prop}
@@ -419,7 +313,7 @@ function times the neural response function
   r_{\text{approx}}(t)=\int_{-\infty}^{\infty}\omega(\tau)\rho(t-\tau)d\tau.
 \end{equation}
 \begin{proof}
-  The proof directly follows Equation\ref{equ:1.2}.
+  The proof directly follows from Equation\ref{equ:1.2}.
 \end{proof}
 \end{prop}
 
@@ -446,7 +340,7 @@ playing a role analogous to $\Delta t$.
 \end{exm}
 
 \begin{center}
-  \includegraphics[scale=0.245]{./png/fig:1.4D.png}
+  \includegraphics[scale=0.245]{./png/fig_1_4D.png}
 \end{center}
 
 \begin{prin}
@@ -485,7 +379,7 @@ be calculated using a window function that vanishes when its argument is negativ
 \end{exm}
 
 \begin{center}
-  \includegraphics[scale=0.72]{./png/fig:1.4E.png}
+  \includegraphics[scale=0.72]{./png/fig_1_4E.png}
 \end{center}
 
 \begin{rem}
@@ -552,7 +446,7 @@ having $s=s_{\text{max}} $ is presented, so we call $s_{\text{max}}$ the preferr
 of the neuron.
 
 \begin{center}
-  \includegraphics[scale=0.38]{./png/fig:1.5.png}
+  \includegraphics[scale=0.38]{./png/fig_1_5.png}
 \end{center}
 \end{exm}
 
@@ -588,7 +482,7 @@ a motor action.
   offset or background
   firing rate that shifts the tuning curve up from the zero axis. 
   \begin{center}
-    \includegraphics[scale=0.34]{./png/fig:1.6.png}
+    \includegraphics[scale=0.34]{./png/fig_1_6.png}
   \end{center}
 \end{exm}
 
@@ -617,7 +511,7 @@ controls how quickly the firing rate increases as a function of $s$. If $\Delta_
 negative, the firing rate is a monotonically decreasing function of $s$ rather
 than a monotonically increasing function.
 \begin{center}
-  \includegraphics[scale=0.39]{./png/fig:1.7.png}
+  \includegraphics[scale=0.39]{./png/fig_1_7.png}
 \end{center}
 \end{exm}
 
@@ -643,14 +537,6 @@ depend on $f ( s )$. \emph{Multiplicative noise} corresponds to having the stand
 deviation proportional to $f ( s )$.
 \end{defn}
 
-
-
-%\bibliography{bib/numericalApprox}
-%\bibliographystyle{abbrv}
-%\bibliographystyle{abbrvnat}
-%\setcitestyle{authoryear,open={[},close={]}}
-\end{multicols}
-\end{document}
 
 
 %%% Local Variables: 
