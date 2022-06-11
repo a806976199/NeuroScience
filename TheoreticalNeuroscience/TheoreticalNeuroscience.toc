@@ -1,0 +1,46 @@
+\contentsline {chapter}{\numberline {1} Neural Encoding I: Firing Rates and Spike Statistics}{3}%
+\contentsline {section}{\numberline {1.1}Introduction}{3}%
+\contentsline {subsection}{\numberline {1.1.1}The Explanation of Some Terms}{3}%
+\contentsline {subsection}{\numberline {1.1.2}Recording Neuronal Responses}{4}%
+\contentsline {subsection}{\numberline {1.1.3}From Stimulus to Response}{4}%
+\contentsline {section}{\numberline {1.2}1.2}{4}%
+\contentsline {section}{\numberline {1.3}What Makes a Neuron Fire?}{4}%
+\contentsline {subsection}{\numberline {1.3.1}Describing the Stimulus}{4}%
+\contentsline {subsection}{\numberline {1.3.2}The Spike-Triggered Average}{5}%
+\contentsline {subsection}{\numberline {1.3.3}White-Noise Stimuli}{6}%
+\contentsline {subsection}{\numberline {1.3.4}Multiple-Spike-Triggered Averages and Spike-Triggered Correlations}{7}%
+\contentsline {section}{\numberline {1.4}Spike-Train Statistics}{9}%
+\contentsline {subsection}{\numberline {1.4.1}The Homogeneous Poisson Process}{9}%
+\contentsline {subsection}{\numberline {1.4.2}The Spike-Train Autocorrelation Funciton}{11}%
+\contentsline {subsection}{\numberline {1.4.3}The Inhomogeneous Poisson Process}{12}%
+\contentsline {subsection}{\numberline {1.4.4}The Poisson Spike Generator}{12}%
+\contentsline {subsection}{\numberline {1.4.5}Comparison with Data}{13}%
+\contentsline {section}{\numberline {1.5}The Neural code}{15}%
+\contentsline {subsection}{\numberline {1.5.1}Independent-Spike,Independent-Neuron,and Correlation Codes}{15}%
+\contentsline {subsection}{\numberline {1.5.2}Temporal Codes}{16}%
+\contentsline {chapter}{\numberline {2} Neural Encoding II: Reverse Correlation and Visual Receptive Fields}{17}%
+\contentsline {section}{\numberline {2.1}Estimating Firing Rates}{17}%
+\contentsline {subsection}{\numberline {2.1.1}The Linear Rate Estimate}{17}%
+\contentsline {subsection}{\numberline {2.1.2} Volterra and Wiener Expansion}{19}%
+\contentsline {subsection}{\numberline {2.1.3}Static Nonlinearities}{19}%
+\contentsline {section}{\numberline {2.2}The Early Visual System}{21}%
+\contentsline {subsection}{\numberline {2.2.1}The Retinotopic Map}{22}%
+\contentsline {subsection}{\numberline {2.2.2}Visual Stimuli}{23}%
+\contentsline {subsection}{\numberline {2.2.3}The Nyquist Frequency}{24}%
+\contentsline {section}{\numberline {2.3}Reverse-Correlation Methods: Simple Cells}{25}%
+\contentsline {subsection}{\numberline {2.3.1}Spatial Receptive Fields}{25}%
+\contentsline {subsection}{\numberline {2.3.2}Temporal Receptive Fields}{27}%
+\contentsline {subsection}{\numberline {2.3.3}Response of a Simple Cell to a Counterphase Grating}{27}%
+\contentsline {subsection}{\numberline {2.3.4}Space-Time Receptive Fields}{28}%
+\contentsline {subsection}{\numberline {2.3.5}Nonseparable Receptive Fields}{29}%
+\contentsline {subsection}{\numberline {2.3.6}Static Nonlinearities: Simple Cells}{30}%
+\contentsline {section}{\numberline {2.4} Static Nonlinearities: Complex Cells}{31}%
+\contentsline {section}{\numberline {2.5}Receptive Fields in the Retina and LGN}{32}%
+\contentsline {section}{\numberline {2.6}V1 Receptive Fields Construction}{33}%
+\contentsline {section}{\numberline {2.7}Questions}{34}%
+\contentsline {subsection}{\numberline {2.7.1}the Bandwidth}{34}%
+\contentsline {chapter}{\numberline {3} Neural Decoding}{35}%
+\contentsline {section}{\numberline {3.1}3.1}{35}%
+\contentsline {section}{\numberline {3.2}3.2}{35}%
+\contentsline {section}{\numberline {3.3}3.3}{35}%
+\contentsline {section}{\numberline {3.4}3.4}{35}%

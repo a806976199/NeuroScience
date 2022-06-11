@@ -38,6 +38,7 @@
 \newcommand{\varphibold}{\boldsymbol{\varphi}}
 \newcommand{\psibold}{\boldsymbol{\psi}}
 \newcommand{\RE}{{\text{Re}}}
+\newcommand{\lrangle}[1]{\langle #1 \rangle}
 
 % this environment is for solutions of examples and exercises
 \newenvironment{solution}%
@@ -61,6 +62,7 @@
 
 \newtheorem{thm}{Theorem}[chapter]
 \newtheorem{alg}[thm]{Algorithm}
+\newtheorem{con}{Concept}
 \newtheorem{asm}[thm]{Assumption}
 \newtheorem{axm}[thm]{Axiom}
 \newtheorem{coro}[thm]{Corollary}
@@ -103,6 +105,9 @@
 
 % each chapter is factored into a separate file.
 
+\tableofcontents
+
+\input{chap/Introduction}
 
 \input{chap/NeuralEncoding1/main}
 
