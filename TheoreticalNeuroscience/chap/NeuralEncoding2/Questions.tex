@@ -5,16 +5,45 @@
 This section states the questions that we can't solve or the concepts that we can't understand.
 \subsection{the Bandwidth}
 \label{sec:bandwidth}
-This sunsection belongs to Chapter \ref{cha:Neural Encoding II} section \ref{sec:ReverseCorrelationMethodsForSimpleCells}.
+This subsection belongs to Chapter \ref{cha:Neural Encoding II} section \ref{sec:ReverseCorrelationMethodsForSimpleCells}.\\
+When referring to the number of sub-regions of receptive region, a
+concept-bandwidth is introduced, but we don't know why it is
+introduced and what its geometric meaning is. The relevant key points are as follows.
+
+\begin{rem}
+  The number of subregions within the receptive field is determined by the product $k\sigma_x$ and is typically expressed in terms of a quantity known as the bandwidth $b$.
+\end{rem}
 
 \begin{defn}
-  The \emph{bandwidth} is defined as
+  The \emph{bandwidth} is the width of the spatial frequency tuning curve measured in octaves (\textbf{we can't understand this word}) and defined as
   \begin{displaymath}
     b = \log_2(K_+/K_-),
   \end{displaymath}
   where $K_+ > k$ and $K_-<k$ are the spatial frequencies of gratings that produce one-half the response amplitude of a grating with $K=k$.
 \end{defn}
 
+\begin{prop}
+  The relationship between $k\sigma_x$ and the bandwidth $b$ is
+  \begin{equation}
+    \label{equ:2.28}
+    b = \log_2\left(\frac{k\sigma_x+\sqrt{2\ln(2)}}{k\sigma_x-\sqrt{2\ln(2)}}\right)\ \text{or}\  k\sigma_x = \sqrt{2\ln(2)}\frac{2^b+1}{2^b-1}.
+  \end{equation}
+\end{prop}
+\begin{proof}
+  The spatial frequency tuning curve as a function of $K$ for a Gabor receptive field with preferred spatial frequency $k$ and receptive field width $\sigma_x$ is proportional to $\exp(-\sigma_x^2(k - K)^2/2)$ (see Equation \ref{equ:2.34}). The values of $K_+$ and $K_-$ needed to compute the bandwidth are thus determined by the condition $\exp(-\sigma_x^2(k - K_{\pm})^2/2) = 1/2$. Solving this equation gives $K_{\pm} = k \pm \sqrt{2\ln(2)}/\sigma_x$, from which we obtain Equation \ref{equ:2.28}.
+\end{proof}
+
+\begin{rem}
+  Bandwidth is defined only if $k\sigma_x > \sqrt{2\ln(2)}$, but this is usually the case. Bandwidths typically range from about 0.5 to 2.5, corresponding to $k\sigma_x$ between 1.7 and 6.9.
+\end{rem}
+
+\begin{rem}
+  High bandwidths correspond to low values of $k\sigma_x$, meaning that the receptive field has few subregions and poor spatial frequency selectivity. Neurons with more subfields are more selective to spatial frequency, and they have smaller bandwidths and larger values of $k\sigma_x$.
+\end{rem}
+
+\begin{solution}
+  The bandwidth means the interval range of $x$ that can reach more than half of the extreme value.
+\end{solution}
 
 %%% Local Variables:
 %%% mode: latex

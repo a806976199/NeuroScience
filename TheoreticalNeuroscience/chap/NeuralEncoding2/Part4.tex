@@ -5,7 +5,7 @@
   Given the light intensity of a visual image $s(s,y,t)$ and a spike sequence $\{t_i\}_{i = 1}^n$, the \emph{spike-triggered average stimulus}  is a function of three variables
   \begin{equation}
     \label{equ:2.21}
-    C(x,y,\tau) = \frac{1}{\left<n\right>}\left<\sum\limits_{i = 1}^ns(s,y,t_i-\tau)\right>,
+    C(x,y,\tau) = \frac{1}{\left<n\right>}\left<\sum\limits_{i = 1}^ns(x,y,t_i-\tau)\right>,
   \end{equation}
   where the brackets denote trial averaging, and we have used the approximation $1/n \approx 1/\left<n\right>$.
 \end{defn}
@@ -15,7 +15,7 @@
   The \emph{correlation function} between the firing rate at time $t$ and the stimulus at time $t+\tau$, for trials of duration $T$ is defined as
   \begin{equation}
     \label{equ:2.22}
-    Q_{rs}(x,y,\tau) = \frac{1}{T}\int_0^Tr(t)s(x,y,t+\tau)dt.
+    Q_{rs}(x,y,\tau) = \frac{1}{T}\int_0^Tr(t) s(x,y,t+\tau)dt.
   \end{equation}
 \end{defn}
 
@@ -24,7 +24,7 @@
   The spike-triggered average is related to the reverse-correlation function by
   \begin{equation}
     \label{equ:2.23}
-    C(x,y,\tau) = \frac{Q_{rs}(x,y,-\tau)}{\left<r\right>}.
+    C(x,y,\tau) = \frac{Q_{rs}(x,y,-\tau)}{\left<r\right>},
   \end{equation}
   where $\left<r\right> = \left<n\right>/T$ is as usual, the average firing rate over the entire trial.
 \end{prop}
@@ -38,7 +38,7 @@
 
 \begin{defn}
   \label{def:linearResponseEstimate}
-  Suppose that the contributions from linear response estimate different spatial points sum linearly, the \emph{linear response estimate} $L(t)$ is obtained by integrating over all x and y values:
+  Suppose that the contributions from linear response estimate different spatial points sum linearly, the \emph{linear response estimate} $L(t)$ is obtained by integrating over all $x$ and $y$ values:
   \begin{equation}
     \label{equ:2.24}
     L(t) = \int_0^{\infty}\iint D(s,y,\tau)s(x,y,t-\tau)dxdyd\tau,
@@ -54,7 +54,7 @@
   \end{equation}
 \end{prop}
 \begin{proof}
-  The proof is Similar with the one in Chapter \ref{cha:Neural Encoding I}.
+  The proof is similar with the one in Chapter \ref{cha:Neural Encoding I}.
 \end{proof}
 
 \begin{defn}
@@ -76,9 +76,10 @@
   Such neurons are said to have \emph{separable space-time receptive field}.
 \end{defn}
 
-\begin{rem}
+\begin{defn}
+  \label{def:nonseparableReceptiveField}
   When $D(x,y,\tau)$ cannot be written as the product of two terms, the neuron is said to have a \emph{nonseparable space-time receptive field}.
-\end{rem}
+\end{defn}
 
 \begin{asm}[Normalization]
   \label{asm:Normalized}
@@ -104,8 +105,8 @@
   \label{exm:spatialExm}
   The following figures show the spatial structure of the receptive fields of two neurons in cat primary visual cortex determined by averaging stimuli between 50 ms and 100 ms prior to an action potential, that is, $\int_{50}^{100}C(x,y,\tau)d\tau/50$.
   \begin{center}
-    \includegraphics[scale=0.25]{./png/spatialExm1}
-    \includegraphics[scale=0.3]{./png/spatialExm2}
+    \includegraphics[scale=0.2]{./png/spatialExm1}
+    \includegraphics[scale=0.25]{./png/spatialExm2}
   \end{center}
   The upper plots are three-dimensional representations, with the horizontal dimensions acting as the $x$-$y$ plane and the vertical dimension indicating the magnitude and sign of $D_s(x, y)$. The lower contour plots represent the $x$-$y$ plane. Regions with solid contour curves are ON areas where $D_s(x, y) > 0$, and regions with dashed contours are OFF areas where $D_s(x, y) < 0$.
 \end{exm}
@@ -140,8 +141,8 @@ where $D_s>0$.
   A \emph{Gabor function} is a product of a Gaussian function and a sinusoidal function.
 \end{defn}
 
-\begin{exm}
-  If the coordinates x and y are chosen such that the borders between the ON and OFF regions are parallel to the y axis and the origin of the coordinates is placed at the center of the receptive field, the Gabor function
+\begin{defn}
+  If the coordinates $x$ and $y$ are chosen such that the borders between the ON and OFF regions are parallel to the $y$ axis and the origin of the coordinates is placed at the center of the receptive field, the Gabor function
   \begin{equation}
     \label{equ:2.27}
     D_s(x,y) = \frac{1}{2\pi\sigma_x\sigma_y}\exp\left(-\frac{x^2}{2\sigma_x^2}-\frac{y^2}{2\sigma_y^2}\right)\cos(kx-\phi)
@@ -149,16 +150,19 @@ where $D_s>0$.
   can be used to approximate the observed receptive field structures.
   The parameters in this function determine the properties of the spatial receptive field:
   \begin{enumerate}[(i)]
-  \item $\sigma_x$ and $\sigma_y$, the receptive field size, determine its extent in the $x$ and $y$ directions, respectively.
-  \item $k$, the preferred spatial frequency, determines the spacing of light and dark bars that produce the maximum response (the preferred spatial wavelength is $2\pi/k$).
-  \item $\phi$, the preferred spatial phase, determines where the ON-OFF boundaries fall within the receptive field.
+  \item $\sigma_x$ and $\sigma_y$, the \emph{receptive field size}, determine its extent in the $x$ and $y$ directions, respectively.
+  \item $k$, the \emph{preferred spatial frequency}, determines the spacing of light and dark bars that produce the maximum response (the preferred spatial wavelength is $2\pi/k$).
+  \item $\phi$, the \emph{preferred spatial phase}, determines where the ON-OFF boundaries fall within the receptive field.
   \end{enumerate}
-  For this spatial receptive field, the sinusoidal grating described by Equation \ref{equ:2.18} that produces the maximum response for a fixed value of $A$ has $K = k$, $\Phi = \phi$, and $\Theta = 0$.
-\end{exm}
+\end{defn}
 
-\begin{rem}
+\begin{prop}
+  For the spatial receptive field Equation \ref{equ:2.27}, the sinusoidal grating described by Equation \ref{equ:2.18} that produces the maximum response for a fixed value of $A$ has $K = k$, $\Phi = \phi$, and $\Theta = 0$.
+\end{prop}
+
+\begin{ntn}%%think more
   The Gabor functions mentioned below refer to Equation \ref{equ:2.27}.
-\end{rem}
+\end{ntn}
 
 \begin{exm}
   The Gabor functions chosen specifically to match the data in Example \ref{exm:spatialExm}. These two figures are plotted with $\sigma_x = 1^{\circ}$, $\sigma_y = 2^{\circ}$, $1/k = 0.56^{\circ}$ and $\phi = 1 - \pi/2$ (left), $\phi = 1 - \pi$ (right).
@@ -188,20 +192,28 @@ where $D_s>0$.
 \end{rem}
 
 \begin{rem}
-  The response characterized by Equation \ref{equ:2.27} is maximal if light-dark edges are parallel to the $y$ axis, so the preferred orientation orientation for a stimulus is 0. An \emph{arbitrary preferred orientation} $\theta$ can be generated by rotating the coordinates, making the substitutions $x \to a\cos(\theta)+y\sin(\theta)$ and $y \to y\cos(\theta)-x\sin(\theta)$ in Equation \ref{equ:2.27}. This produces a spatial receptive field that is maximally responsive to a grating with $\Theta = \theta$. Actually, this rotation is from the rotation matrix
+  The response characterized by Equation \ref{equ:2.27} is maximal if light-dark edges are parallel to the $y$ axis, so the preferred orientation orientation for a stimulus is 0.
+\end{rem}
+
+\begin{prop}
+  An arbitrary preferred orientation $\theta$ can be generated by rotating the coordinates, making the substitutions $x \to a\cos(\theta)+y\sin(\theta)$ and $y \to y\cos(\theta)-x\sin(\theta)$ in Equation \ref{equ:2.27}. This produces a spatial receptive field that is maximally responsive to a grating with $\Theta = \theta$.
+\end{prop}
+\begin{proof}
+  Actually, this rotation is from the rotation matrix
   \begin{displaymath}
     M(\theta) = \left(
       \begin{matrix}
         \cos(\theta) & \sin(\theta)\\
         -\sin(\theta) & \cos(\theta)
       \end{matrix}
-    \right).
+    \right),
   \end{displaymath}
-\end{rem}
+  which rotates a vector in two-dimensional space by $\theta$ clockwise.
+\end{proof}
 
-\begin{rem}
+\begin{prop}
   Similarly, a receptive field centered at the point $(x_0, y_0)$ rather than at the origin can be constructed by making the substitutions $x \to x-x_0$ and $y \to y-y_0$, where the $(x_0, y_0)$ is called the \emph{receptive field center}.
-\end{rem}
+\end{prop}
 
 \subsection{Temporal Receptive Fields}
 \label{sec:TemporalReceptiveFields}
@@ -229,7 +241,7 @@ dark-light boundary that reverses to a light-dark boundary over time.
 \end{proof}
 
 \begin{defn}
-  The phenomenon that a neuron's receptive field reverses with time is called the \emph{Reversal effect}.
+  The phenomenon that a neuron's receptive field reverses with time is called the \emph{reversal effect}.
 \end{defn}
 
 \begin{rem}
@@ -347,7 +359,7 @@ dependence on spatial phase.
 \label{sec:Space-TimeReceptiveFields}
 
 \begin{rem}
-  To display the function $D(x, y,\tau)$ in a space-time plot rather than as a sequence of spatial plots , we suppress the y dependence and plot an $x$-$\tau$ projection of the space-time kernel.
+  To display the function $D(x, y,\tau)$ in a space-time plot rather than as a sequence of spatial plots , we suppress the $y$ dependence and plot an $x$-$\tau$ projection of the space-time kernel.
 \end{rem}
 
 \begin{exm}[ A separable space-time receptive field]
@@ -389,10 +401,10 @@ movement of the image.
   \end{center}
   The linear estimate of the response at any time is determined by positioning the receptive field diagram so that its horizontal axis matches the time of response estimation and noting how the OFF and ON regions overlap with the image.
   \begin{enumerate}[]
-  \item (A-C) The image is a dark bar that is flashed on for a short interval of time. There is no response (A) until the dark image overlaps the OFF region (B) when $L(t)>0$. The response is later suppressed when the dark bar overlaps the ON region (C) and $L(t) < 0$.
-  \item  (D) A plot of $L(t)$ versus time corresponding to the responses generated in A-C. Time runs vertically in this plot, and $L(t)$ is plotted horizontally with the dashed line indicating the zero axis and positive values plotted to the left.
+  \item (A-C) The image is a dark bar that is flashed on for a short interval of time. There is no response (figure A) until the dark image overlaps the OFF region (figure B) when $L(t)>0$. The response is later suppressed when the dark bar overlaps the ON region (figure C) and $L(t) < 0$.
+  \item  (D) A plot of $L(t)$ versus time corresponding to the responses generated in figures A-C. Time runs vertically in this plot, and $L(t)$ is plotted horizontally with the dashed line indicating the zero axis and positive values plotted to the left.
   \item (E) The image is a static dark bar. The bar overlaps both an OFF (small $\tau$) and an ON (large $\tau$) region, generating opposing positive and negative contributions to $L(t)$.
-  \item (F) The weak response corresponding to E, plotted as in D.
+  \item (F) The weak response corresponding to E, plotted as in figure D.
   \end{enumerate}
   The flashed dark bar of figures A-C is a more effective stimulus than the static bar of figure E.
 \end{exm}
@@ -406,11 +418,11 @@ movement of the image.
   \begin{enumerate}[]
   \item (A-C) The stimulus is a grating moving to the left.
     \begin{enumerate}[-]
-    \item At the time corresponding to A, OFF regions overlap with dark bands and ON regions with light bands, generating a strong response.
-    \item At the time of the estimate in B, the alignment is reversed, and $L(t)$ is negative.
-    \item (C) is a plot of $L(t)$ versus time corresponding to the responses generated in A-B. Time runs vertically in this plot and $L(t)$ is plotted horizontally, with the dashed line indicating the zero axis and positive values plotted to the left.
+    \item At the time corresponding to figure A, OFF regions overlap with dark bands and ON regions with light bands, generating a strong response.
+    \item At the time of the estimate in figure B, the alignment is reversed, and $L(t)$ is negative.
+    \item Figure C is a plot of $L(t)$ versus time corresponding to the responses generated in figures A-B. Time runs vertically in this plot and $L(t)$ is plotted horizontally, with the dashed line indicating the zero axis and positive values plotted to the left.
     \end{enumerate}
-  \item (D-F) The stimulus is a grating moving to the right. The responses are identical to those in A-C.
+  \item (D-F) The stimulus is a grating moving to the right. The responses are identical to those in figures A-C.
   \end{enumerate}
 \end{exm}
 
@@ -449,7 +461,7 @@ movement of the image.
       \end{matrix}
     \right)
   \end{equation}
-  can rotate a vector in two-dimensional space by $\psi$ counterclockwise.
+  can rotates a vector in two-dimensional space by $\psi$ counterclockwise.
 \end{lem}
 
 \begin{prop}
@@ -500,11 +512,11 @@ movement of the image.
   \begin{enumerate}[]
   \item (A-C) The stimulus is a grating moving to the left.
     \begin{enumerate}[-]
-    \item At the time corresponding to A, OFF regions overlap with dark bands and the ON region overlaps a light band, generating a strong response.
-    \item At the time of the estimate in B, the alignment is reversed, and $L(t)$ is negative.
-    \item (C) is a plot of $L(t)$ versus time corresponding to the responses generated in A-B.
+    \item At the time corresponding to figure A, OFF regions overlap with dark bands and the ON region overlaps a light band, generating a strong response.
+    \item At the time of the estimate in figure B, the alignment is reversed, and $L(t)$ is negative.
+    \item Figure C is a plot of $L(t)$ versus time corresponding to the responses generated in figures A-B.
     \end{enumerate}
-  \item (D-F) The stimulus is a grating moving to the right. Because of the tilt of the space-time receptive field, the alignment with the right-moving grating is never optimal and the response is weak (F).
+  \item (D-F) The stimulus is a grating moving to the right. Because of the tilt of the space-time receptive field, the alignment with the right-moving grating is never optimal and the response is weak (figure F).
   \end{enumerate}
 \end{exm}
 

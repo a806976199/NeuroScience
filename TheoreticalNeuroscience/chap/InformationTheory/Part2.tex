@@ -1,0 +1,230 @@
+\section{Information and Entropy Maximization}
+\label{sec:Information and Entropy Maximization}
+If the neural encoding-decoding process corresponds to the concept of
+``channel'' in information theory, then the following analysis can be
+easily carried out. We want to maximize the channel capacity $I(r,s)$,
+that is, the stimulus $s$ that minimizes the uncertainty in the firing
+rate $r$. According to $I(r,s)=H(r)-H(r,s)$, we should increase $H(r)$
+and decrease $H(r,s)$.
+\subsection{Entropy Maximization for a Single Neuron}
+In the case of only considering the encoding of single neuron, we
+assume that $s$ uniquely determines $r$, that is, $H(r,s)=0$. At this
+point we just need to maximize $H(r)$.\\
+
+Before proceeding with optimization, we should discuss the constraints
+of this problem.An obvious constraint is that the integral of the
+distribution $p(r)$ is 1, and there is an upper bound on $r$, $r\leq
+r_{\max}$:
+\begin{equation}
+  \int_{0}^{r_{\max}}{p(r)dr}=1.
+  \end{equation}
+Under this constraint, and
+  according to the Lagrange method, the distribution with the largest
+  Shannon entropy is a uniform distribution $p(r)=1/r_{\max}$. After
+  $p(r)$ is determined, we can calculate the neuron's encoding $f(s)$
+  for the stimulus according to $p(s)$. In the natural environment,
+  the stimulus distribution $p(s)$ is relatively certain, which we can
+  measure experimentally (using the movie Casablanca to represent the
+  light information, or directly measuring the sound information in
+  the environment where the bullfrog lives).\\
+
+  In addition to the above case, if other constraints are used, we
+  will get different firing rate distributions $p(r)$. For example, if
+  the firing rate $r(t)$ is required to have a fixed mean, and $r>0$,
+  then we will get the distribution $p(r)$ to be exponential. If $r$
+  is required to have a fixed mean and fixed variance (assuming no
+  constraints from $r>0$), then we will get $p(r)$ to be a Gaussian
+  distribution. \\
+  
+  As experimental evidence, Laughlin's (1981) study is given in the
+  book. It can be seen that the contrast-membrane potential
+  response curve of the fly conforms to the maximum
+  entropy encoding when only the interval $r$ is restricted ($0\leq
+  r\leq r_{\max}$), $f(s)=r_{\max}\rm{CDF}(s)$. (It should be noted that
+  the fluctuation of the membrane potential is measured in this
+  experiment, not the firing rate! However, the fluctuation amplitude
+  of the membrane potential can be decomposed into two parts: jitter
+  and flux, where the jitter part reflects the fluctuation of the
+  input EPSP, and the flux part reflects is the release rate)
+  \subsection{Populations Neurons}
+  For population neurons encoding, it is not required for a single
+  neuron to achieve maximum entropy. If each neuron reaches the
+  maximum entropy of the stimulus, then they must all overlap. If the
+  sum of the entropy of population neurons is to be maximized, then it
+  can be reached by making it reach the upper bound
+  $\sum\limits_aH(r_a)$.  The important condition here is that the
+  firing rate of each neuron is independent of each other. In effect,
+  it means that each neuron should respond to individual components of
+  the stimulus.\\
+  
+ When the constraints of each neuron are consistent, their firing rate
+ $r$ distribution should also be consistent. This is called
+ probability equlization. However, because the response of neurons to
+ stimuli is limited by dynamics and physiology, it is difficult to
+ achieve ``mutual independence'' between the firing responses $r$ of
+ different neurons. So we pursue the ``independence'' of low-order
+ moments. Restricted to the first-order and second-order moments, that
+ is, the expectation and variance of the $r$ distribution satisfy the
+ ``independent'' condition, that is, fixed expectation, and there is a
+ Whitening condition: the fixed variance (correlation matrix) is
+ proportional to the unit matrix. For a pure Gaussian distribution,
+ the first and second moments are sufficient to characterize
+ independence, so for Gaussian (or ``Mexican sombrero'') responses like
+ the retinal spatial receptive field, the first and second moments are
+ appropriate methods.\\
+ \subsection{Application to Retinal Ganglion Cell Receptive Fields}
+As mentioned in Chapter 1, the neural model has three levels: the
+first level is the description model, the second level is the
+explanatory model, and the third level is the truly complete mechanism
+model. The purpose of this section is to provide an explanation for
+the descriptive model of the retinal ganglion receptive field in
+Chapter 2.\\
+
+Furthermore, at different stages of visual processing, the purpose of
+neural processing is different. For retina and LGN, only the task of
+information compression and transmission needs to be done well (neural
+processing is task-independent). For the nerves of the primary visual
+cortex, in addition to information transmission, some primary tasks
+such as target recognition and feature extraction also need to be
+done. The processing methods are also different, which will be
+summarized in two parts here.\\
+
+In this section, we need to consider not only the maximization of
+information entropy, but also the influence of noise. We need to
+achieve two goals: the first is to remove the correlation (redundancy)
+in the stimulus input of the natural environment. The correlation of
+stimuli can be characterized by the $Q_{ss}$ of the autocorrelation
+function. The second is to remove noise. The following will discuss
+the case where the stimulus does not contain or contains noise.\\
+Stimulus without noise:
+Assume that the neuron's response is a linear response model (Chapter
+2), $L(a)=\int D(\vec{x}-\vec{a})s(\vec{x})d\vec{x}$, according to whitening condition
+\begin{equation}
+  \begin{aligned}
+    Q_{LL} (\vec{a},\vec{b})    &=\left<
+    L_s (\vec{a})L_s (\vec{b})  
+       \right>\\
+    &=\int D_s (\vec{x}-\vec{a})
+       D_s (\vec{y}-\vec{b})
+       \langle s_s (\vec{x})
+       s_s (\vec{y})   \rangle \\
+    &=\sigma^2\delta(\vec{a}-\vec{b}).
+  \label{equ:4.36}
+  \end{aligned}
+\end{equation}
+Next, you only need to perform the Fourier transform of both sides of
+the equation at the same time. Note that the Fourier transform here is
+actually a high-dimensional Fourier transform, but since the symbol
+and the one-dimensional Fourier transform are unified, we do not need
+to introduce additional operations. Then,we have whitening kernal,
+\begin{equation}
+  \label{eq: 4.42}
+   \left\lvert \tilde{D}_s (\vec{k })    \right\rvert = \frac{\sigma _L}{\sqrt{\tilde{Q}_{ss} (\vec{k})  } }.
+\end{equation}
+The graphical interpretation is that for low-power frequency
+components of the stimulus power spectrum (those
+$\tilde{Q}_{ss} (\vec{k})$ where $\vec{k}$ is small), the
+  response kernel $\tilde{D}_s$ amplifies this frequency;
+  otherwise, it reduces it. That's what Whitening does.\\
+  
+According to the autocorrelation function of the stimulus $s$ in
+different natural environments, the optimal response kernel
+$\tilde{D}_s$ can be obtained. For the light stimulus received by
+the retina, it can be considered that
+\begin{equation}
+  \tilde{Q}_{ss} (\vec{k })  \varpropto
+\frac{\exp\left(-\alpha |\vec{k }
+    |   \right) }{|\vec{k }
+  |  +k _0^2 }.
+\end{equation}
+
+When the stimulus contains additive noise:
+Assuming that the stimulus contains additive noise, at this time, the
+stimulus obtained by the nerve is $s(\vec{x},t)+\eta(\vec{x},t)$,
+where $s$ is the real signal and $\eta$ is the additive noise. In
+general, it is assumed that the real signal is independent of the
+noise and the noise is white noise. The way we deal with noise is
+still to use a filter, so that the final complete filter (the Fourier
+transform) is the combined effect of the whitening kernel
+$\tilde{D}_s$ and the noise reduction kernel
+$\tilde{D}_w$, $\tilde{D}_s=\tilde{D}_w\tilde{D}_\eta$.\\
+
+Our goal of noise reduction is to make the filtered signal
+$D_{\eta}(\vec{k})*(s(\vec{k})+\eta(\vec{k}))$ as close as possible to the real signals
+$s(\vec{k})$ in the sense of the two-norm, that is, to minimize
+\begin{equation}
+  \int|D_\eta(\vec{k})(s(\vec{k})+\eta(\vec{k}))-s(\vec{k})|^2d\vec{k}.
+\end{equation}
+It is worth noting here that, according to Parseval's theorem, the
+above time domain energy (in this case, two-norm distance) is equal to
+the frequency domain energy $
+\int|\tilde{D}_\eta(\vec{k})(\tilde{s}(\vec{k})+\tilde{\eta}(\vec{k}))-\tilde{s}(\vec{k})|^2d\vec{k}$. Considering
+the expectation under the stimulus $s$ distribution, we get
+\begin{equation}
+D_\eta=\rm{argmin}_{D_\eta}\left<\int|D_\eta^{~}(\vec{k})(s^{~}(\vec{k})+\eta^{~}(\vec{k}))-s^{~}(\vec{k})|^2d\vec{k}\right>.
+\end{equation}
+After a series of derivations, the theoretically optimal noise
+reduction kernel is obtained:
+\begin{equation}
+  \tilde{D}_{\eta} (\vec{k })   = \frac{\tilde{Q}_{ss} (\vec{k })    }{\tilde{Q}_{ss} (\vec{k })  +\tilde{Q}_{\eta \eta } (\vec{k })  }.
+\end{equation}
+Considering $ \tilde{D}_{s}= \tilde{D}_{\omega}
+\tilde{D}_{\eta}$, the norm condition of the stimulus-response
+kernel is obtained
+\begin{equation}
+  \label{eq: 4.47}
+   \left\lvert\tilde{D}_{\eta} (\vec{k })   \right\rvert \propto  \frac{\sigma _L\sqrt{ \tilde{Q}_{ss} (\vec{k })  }  }{\tilde{Q}_{ss} (\vec{k })  +\tilde{Q}_{\eta \eta } (\vec{k })  }.
+\end{equation}
+Note that this condition only requires the modulo length of
+$\tilde{D}_{s}$, and does not give a specific complex value. If you
+want to give a specific value, on the one hand, you can continue to
+deduce from the ``independence'' condition, but we also mentioned that
+this method is difficult to achieve. On the other hand, we can also
+give constraints under different scenarios, and then determine the
+optimal response kernel under the constraints according to the
+constraints.\\
+
+For the spatial receptive field, we can assume that the receptive
+field is isotropic, so we can directly take
+$\tilde{D}_{s}(\vec{k})=|\tilde{D}_{s}(\vec{k})|$ as a real number (because the
+result of the Fourier transform of a symmetric signal is a real
+function). The $\tilde{D}_{s}$ obtained at this time is similar to the
+shape of the Mexican straw hat function or the Gaussian kernel. It
+depends on the actual optical input signal-to-noise ratio. In the case
+of overall low light intensity, the signal-to-noise ratio of light is
+very low, and the optimal kernel at this time is a shape similar to a
+Gaussian kernel. At this time, the corresponding low-pass filter in
+the frequency domain is to filter the local fluctuations. Conversely,
+if the overall light intensity is high, the signal-to-noise ratio of
+the light signal is very high, so the optimal filter becomes the
+Mexican straw hat function (the result of the subtraction of two
+Gaussian kernels), and the corresponding frequency domain is a a
+narrowband filter (band-pass filter).\\
+
+For the time receptive field, the expression of $\tilde{D}_{s}(\vec{k})$ cannot be directly obtained, and other restrictions need to be introduced. At this point we can require $D_{s}$ to satisfy causality, and satisfy the ``fastest response'' condition (not specified in the book). Physiological experimental results demonstrate that the response kernal obtained by this method are very close to the real temporal response kernal.
+
+\subsection{Cortical Coding}
+
+In the primary visual cortex, neurons not only participate in the
+encoding of information, but also perform a series of recognition and
+extraction. However, the results of the analysis of information
+entropy maximization can still be enlightening in some aspects, such
+as explaining the sensitive combinatorial properties of neuron
+features (the way that multiple selectivities are collectively
+assigned). For the primary optic nerve, there are both temporal
+frequency responses and spatial frequency responses:
+\begin{equation}
+  \tilde{Q}_{ss}\left(\vec{k},\omega\right)\propto \frac{1}{| \vec{k}|^2 +\alpha^2\omega^2}.
+\end{equation}
+ so in
+different spatial frequency sensitive neurons $\vec{k}$ takes
+different values), the optimal time frequency response curve is also
+different. When the $\vec{k}=\vec{k}_{\rm{prefer}}$ is larger, the signal has
+a lower signal-to-noise ratio, so the time-frequency response is a
+low-pass filter; when $\vec{k}$ is smaller, the signal has a
+higher signal-to-noise ratio, and the time-frequency response is a
+band-pass filter.
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../notesOnFluidMechanics"
+%%% End:

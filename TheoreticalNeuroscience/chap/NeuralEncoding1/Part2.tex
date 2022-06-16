@@ -14,44 +14,45 @@
 \end{asm} 
 
 \begin{ntn}
-  \emph{Spike train} is represented a list of the times $\{t_i\}_{i=1}^n$ when spikes occurred.
+  Typically, a \emph{spike train} that start at time 0 and end at time $T$ can be characterized simply by $\{t_i\}_{i=1}^n$, a list of the times when spikes occurred, where $0\leq t_i\leq T$ for all $i$ and $n$ represents the number of spikes in this spike train.
 \end{ntn}
 
 \begin{defn}
-  \emph{Neural response function} $\rho (t)$ shows whether a spike is fired at time $t$,
+  A \emph{neural response function} $\rho (t)$ shows whether a spike is fired at time $t$,
    which can be represent as a sum of infinitesimally narrow, 
   idealized spikes in the form of Dirac $\delta$ functions
   \begin{equation}
     \label{equ:1.1}
     \rho(t)=\sum_{i=1}^n\delta(t-t_i),
   \end{equation}
-  where $t_i$ with $i=1,2,\dots,n$, recorded in the trail, is the spike train
-   %taken to 
-   start at time $0$ and end at time $T$, so $0\leq t_i\leq T$ for all $i$.
+  where $\{t_i\}_{i=1}^n$ is a spike train.
 \end{defn}
 
 \begin{lem}
-  $\delta$ function satisfies, for any well-behaved function $h(t)$
+  For any well-behaved function $h(t)$, $\delta$ function satisfies
   \begin{equation}
     \label{equ:1.3}
     \int \delta(t-\tau)h(\tau)d\tau=h(t),
   \end{equation}
-  which provided that the limits of the integral surround the point $t$ (if they do not,
-  the integral is $0$).
+  which provided that the limits of the integral surround the point $t$ (if they do not, the integral is $0$).
   \begin{proof}
-  It follows from
-  \begin{equation*}
+  By the definition of $\delta$ function, we have
+  \begin{displaymath}
     %\lim_{\epsilon\rightarrow 0}\int_{-\infty}^{+\infty} \delta(t-\tau)h(\tau)d\tau=
     \lim_{\epsilon\rightarrow 0}\int_{t - \epsilon}^{t + \epsilon} \delta(t-\tau)h(\tau)d\tau
     =h(t)\int_{t - \epsilon}^{t + \epsilon} \delta(t-\tau)d\tau=h(t).
-  \end{equation*}
+  \end{displaymath}
+  where the second step follows from the integral mean value theorem.
   \end{proof}
-
 \end{lem}
 
+\begin{rem}
+  $\rho(t)$ is used to re-express sums over spikes as integrals over time.
+\end{rem}
+
 \begin{thm}
-  $\rho(t)$ is used to re-express sums over spikes as integrals over time. For any 
-  well-behaved function $h(t)$, we can write
+  \label{thm:sumToIntegral}
+  For any well-behaved function $h(t)$, we can write
   \begin{equation}
     \label{equ:1.2}
     \sum_{i=1}^n h(t-t_i)=\int_{-\infty}^{\infty}h(\tau)\rho(t-\tau)d\tau,
@@ -62,15 +63,20 @@
   \end{proof}
 \end{thm}
 
+\begin{prop}
+  \label{prop:numberOfSpikes}
+  The number of spikes $n$ on a trial satisfies
+  \begin{displaymath}
+    n = \int_0^{T}\rho(\tau) d\tau.
+  \end{displaymath}
+\end{prop}
+
 \begin{defn}
-  \emph{Spike-count rate $r$} is obtained by counting the number of action potentials that appear during a trial and
-  dividing by the duration of the trial,
+  The \emph{spike-count rate $r$} of a spike train is obtained by counting the number of action potentials that appear during a trial and dividing by the duration of the trial,
   \begin{equation}
-    r=\frac{n}{T}=\frac{1}{T}\int_0^T\rho(\tau)d\tau.
+    r=\frac{n}{T}=\frac{1}{T}\int_0^T\rho(\tau)d\tau,
   \end{equation}
-  The second equality follows from the fact that $n=\int\rho(\tau)d\tau$ and indicates
-that the spike-count rate is the time average of the neural response function over the 
-duration of the trial.
+  which indicates that the spike-count rate is the time average of the neural response function over the  duration of the trial.
 \end{defn}
 
 % \begin{rem}
@@ -83,16 +89,14 @@ duration of the trial.
   losing all temporal resolution about variations in the neural response during the 
   course of the trial. A time-dependent firing rate can be defined by counting spikes 
   over short time intervals, but this can no longer
-be computed from a single trial.
+be computed from a single trial, see Example \ref{exm:singleTrial}.
 \end{rem}
 
 \begin{exm}
-  We can define the firing rate
-at time $t$ during a trial by counting all the spikes that occurred between
-times $t$ and $t + \Delta t$, for some small interval $\Delta t$, and dividing this count by
-$\Delta t$. However, for small $\Delta t$, which allows for high temporal resolution, the
+  \label{exm:singleTrial}
+  We can define the firing rate at time $t$ during a trial by counting all the spikes that occurred between times $t$ and $t + \Delta t$, for some small interval $\Delta t$, and dividing this count by $\Delta t$. However, for small $\Delta t$, which allows for high temporal resolution, the
 result of the spike count on any given trial is apt to be either $0$ or $1$, giving
-only two possible firing-rate values.
+only two possible firing-rate values. The solution to this problem is to average over multiple trials.
 \end{exm}
 
 \begin{ntn}
@@ -110,7 +114,7 @@ only two possible firing-rate values.
    the interval,
    \begin{equation}
     \label{equ:1.5}
-     r(t)=\frac{1}{\Delta t}\int_t^{t+\Delta t}\langle \rho(\tau)\rangle d\tau,
+     \rm{r}(t)=\frac{1}{\Delta t}\int_t^{t+\Delta t}\langle \rho(\tau)\rangle d\tau,
    \end{equation}
    where $\langle\rho(t)\rangle$ is the trial-averaged neural response function.
 \end{defn}      
@@ -134,25 +138,27 @@ average.
   is the probability of a spike occurring during a short interval of duration $\Delta t$ around the time $t$.
   %which is called \emph{spiking probablity}.
   \begin{proof}
-  For sufficiently small $\Delta t$, $r(t)\Delta t$ is the average number of spikes occurring
+  For sufficiently small $\Delta t$, $\rm{r}(t)\Delta t$ is the average number of spikes occurring
 between times $t$ and $t + \Delta t$ over multiple trials. The average number of
-spikes over a longer time interval is given by the integral of $r ( t )$ over that
-interval. If $t$ is small, there will never be more than one spike within the
-interval between $t$ and $t + \Delta t$ on any given trial. This means that $r(t)\Delta t$ is
-also the fraction of trials on which a spike occurred between those times.
-\end{proof}
+spikes over a longer time interval is given by the integral of $\rm{r} ( t )$ over that
+interval. If $\Delta t$ is small, there will never be more than one spike within the
+interval between $t$ and $t + \Delta t$ on any given trial. This means that $\rm{r}(t)\Delta t$ is
+also the fraction of trials on which a spike occurred between those times. Equivalently, $\rm{r}(t)\Delta t$ is the probability that a spike occurs during this time
+interval
+\end{proof}\qedhere
 \end{prop}
 
 
 
 \begin{thm}
+  \label{thm:equivalence}
   For any function $h$, 
   we can
 replace the trial-averaged neural response function with the firing rate r($t$)
 within any well-behaved integral.
   \begin{equation}
     \label{equ:1.6}
-    \int h(\tau)\langle \rho(t-\tau)\rangle d\tau = \int h(\tau)r(t-\tau)d\tau.
+    \int h(\tau)\langle \rho(t-\tau)\rangle d\tau = \int h(\tau)\rm{r}(t-\tau)d\tau.
   \end{equation}
 \end{thm}
 
@@ -164,36 +170,45 @@ integrals. And provides another interpretation of
 \end{rem}
 
 \begin{defn}
-  \emph{Average firing rate $\langle r \rangle $} is the spike-count firing rate to be averaged over trials.
+  \label{def:averageFiringRate}
+  The \emph{average firing rate $\langle r \rangle $} is the spike-count firing rate to be averaged over trials, that is, 
   \begin{equation}
-    \label{equ:1.7}
-    \langle r\rangle =\frac{\langle n\rangle }{T}
-    %=\frac{1}{T}\int_{0}^{T} \langle\rho(\tau) \rangle \,d\tau =\frac{1}{T}\int_{0}^{T}r(t)\,dt
+    \label{equ:averageFire}
+    \langle r\rangle = \left< \frac{n}{T} \right> =\frac{\langle n\rangle }{T},
+    % =\frac{1}{T}\int_{0}^{T} \langle\rho(\tau) \rangle \,d\tau =\frac{1}{T}\int_{0}^{T}r(t)\,dt
   \end{equation}
-   where $\langle n \rangle $ is the trial-averaged number of the spike in the trial, 
-   $T$ is the time period of the trial.
+  where $\langle n \rangle $ is the trial-averaged number of the spike in the trial, 
+  $T$ is the time period of the trial.
 \end{defn}
 
+\begin{rem}
+  The last equality in Equation \ref{equ:averageFire} indicates that $\langle r\rangle $ is just the average number of spikes per trial divided by the trial duration.
+\end{rem}
+
 \begin{prop}
-  \begin{equation*}
-    \langle r\rangle=\frac{1}{T}\int_{0}^{T}r(t)\,dt
-  \end{equation*}
+  The average firing rate is equal to
+  both the time average of $\rm{r}(t)$ and the trial average of the spike-count rate $r$, that is,
+  \begin{equation}
+    \label{equ:1.7}
+    \langle r\rangle =\frac{1}{T}\int_{0}^{T}\rm{r}(t)\,dt.
+  \end{equation}
+  % \begin{equation} 
+  %   \langle r\rangle=\frac{1}{T}\int_{0}^{T}r(t)\,dt
+  % \end{equation}
   \begin{proof}
-    \begin{equation*}
-      \langle r\rangle =\frac{\langle n\rangle }{T}
-    =\frac{1}{T}\int_{0}^{T} \langle\rho(\tau) \rangle \,d\tau =\frac{1}{T}\int_{0}^{T}r(t)\,dt
-    \end{equation*}
-    The first equality indicates that $\langle r\rangle $ is just the average 
-   number of spikes per trial divided by the trial duration. The third equality follows from
-the equivalence of the firing rate and the trial-averaged neural response
-function within integrals Equation \ref{equ:1.6}. The average firing rate is equal to
-both the time average of r($t$) and the trial average of the spike-count rate $r$. 
+    By Definition \ref{def:averageFiringRate},
+    \begin{displaymath}
+    %\label{equ:1.7}
+    \langle r\rangle =\frac{\langle n\rangle }{T}
+    =\frac{1}{T}\int_{0}^{T} \langle\rho(\tau) \rangle \,d\tau =\frac{1}{T}\int_{0}^{T}\rm{r}(t)\,dt,
+  \end{displaymath}
+  where the second equality follows from Proposition \ref{prop:numberOfSpikes} and the third equality from Theorem \ref{thm:equivalence}. 
   \end{proof}
 \end{prop}
 
 \begin{rem}
-  Whenever possible, we use the terms “firing rate”, “spike-count rate”
-, and “average firing rate” for r($t)$, $r$, and $\langle  r\rangle  $, respectively. In particular, 
+  Whenever possible, we use the terms “firing rate”, “spike-count rate”, 
+  and “average firing rate” for r($t)$, $r$, and $\langle  r\rangle  $, respectively. In particular, 
 we distinguish the spike-count rate $r$
 from the time-dependent firing rate r($t$) by
 including the time argument in the latter expression (unless r($t)$ is independent of time).
@@ -210,7 +225,7 @@ way to approximate r($t$).
   firing rates from a single trial, but more accurate results could be obtained
   by averaging over multiple trials.
   \begin{exm}
-    We shows $3$s of the response of a neuron in the inferotemporal cortex 
+    We show an example of a $3$ s spike train of the response of a neuron in the inferotemporal cortex 
   recorded while a monkey watched a video. Neurons
   in the region of cortex where this recording was made are selective for
   complex visual images, including faces.
@@ -218,7 +233,7 @@ way to approximate r($t$).
 \end{ntn}
 \begin{center}
   \label{fig:1.4A}
-    \includegraphics[scale=0.048]{./png/fig_1_4A.png}
+    \includegraphics[scale=0.3]{./png/Fig_1_4A.png}
   \end{center}
 
 \begin{alg}
@@ -228,7 +243,8 @@ and divide by $\Delta t$.
 \end{alg}
 
 \begin{exm}
-  This figure shows the approximate firing rate computed
+  \label{fig:1.4B}
+  The figure in Example \ref{fig:1.4B} shows the approximate firing rate computed
 using this procedure with a bin size of 100 ms. Note that with this procedure, the quantity being computed is 
 really the spike-count firing rate over the duration of the bin, and that the firing rate 
 r($t$) within a 
@@ -239,7 +255,6 @@ resembling a histogram.
 \end{exm}
 
 \begin{center}
-  \label{fig:1.4B}
   \includegraphics[scale=0.053]{./png/fig_1_4B.png}
 \end{center}
 
@@ -266,7 +281,7 @@ depends not only on the size of the time bins but also on their placement.
 \end{rem}
 
 \begin{alg}
-To avoid the arbitrariness in the placement of bins, the algorithm is taking
+To avoid the arbitrariness in the placement of bins, the algorithm is to take
 a single bin or window of duration $\Delta t$ and slide it along the spike train,
 counting the number of spikes within the window at each location which have a better 
 temporal resolution.
@@ -274,14 +289,14 @@ temporal resolution.
 
 \begin{exm}
   \label{fig:1.4C}
-  The jagged curve in  the figure below shows the result of sliding a $100$ ms wide
+  The jagged curve in the figure of the Example \ref{fig:1.4C} shows the result of sliding a $100$ ms wide
 window along the spike train.  The firing rate approximated in 
 this way
 can be expressed as the sum of a window function over the times $t_i$ for
 $i = 1 , 2 ,\dots, n$ when the $n$ spikes in a particular sequence occurred,
 \begin{equation}
   \label{equ:1.8}
-  r_{\text{approx}}(t)=\sum_{i = 1}^{n}\omega(t-t_i), 
+  \rm{r}_{\text{approx}}(t)=\sum_{i = 1}^{n}\omega(t-t_i), 
 \end{equation}
 where the window function is
 
@@ -307,10 +322,10 @@ by the discontinuous shape of the window function used.
 function times the neural response function
 \begin{equation}
   \label{equ:1.10}
-  r_{\text{approx}}(t)=\int_{-\infty}^{\infty}\omega(\tau)\rho(t-\tau)d\tau.
+  \rm{r}_{\text{approx}}(t)=\int_{-\infty}^{\infty}\omega(\tau)\rho(t-\tau)d\tau.
 \end{equation}
 \begin{proof}
-  The proof directly follows from Equation\ref{equ:1.2}.
+  The proof directly follows from Equation \ref{equ:1.2}.
 \end{proof}
 \end{prop}
 
@@ -323,12 +338,12 @@ function times the neural response function
 
 \begin{exm}
   \label{fig:1.4D}
-  Instead of the rectangular window function used in figure in example \ref{fig:1.4C}, 
-  figure in example \ref{fig:1.4D} use a 
+  Instead of the rectangular window function used in figure in Example \ref{fig:1.4C}, 
+  figure in Example \ref{fig:1.4D} use a 
   continuous window function like the Gaussian
   \begin{equation}
     \label{equ:1.11}
-    w(\tau)=\frac{1}{\sqrt{2\pi}}\sigma_{\omega}\text{exp}\left(-\frac{\tau^2}{2\sigma_{\omega}^2} \right),  
+    \omega(\tau)=\frac{1}{\sqrt{2\pi}}\sigma_{\omega}\text{exp}\left(-\frac{\tau^2}{2\sigma_{\omega}^2} \right),  
   \end{equation}
    which is used in Equation \ref{equ:1.8} generates 
 a firing-rate estimate that is a smooth function of time.
@@ -380,8 +395,8 @@ be calculated using a window function that vanishes when its argument is negativ
 \end{center}
 
 \begin{rem}
-  Note that the rate computed in example \ref{fig:1.4E} tends to peak later than the 
-  rate computed in example \ref{fig:1.4D} using a temporally symmetric window function.%%这个地方需要解释一下吗？
+  Note that the rate computed in Example \ref{fig:1.4E} tends to peak later than the 
+  rate computed in Example \ref{fig:1.4D} using a temporally symmetric window function.%%这个地方需要解释一下吗？
 \end{rem}
 
 \subsection{Tuning Curve}
@@ -390,7 +405,7 @@ be calculated using a window function that vanishes when its argument is negativ
   Neuronal responses typically depend on many different properties of a
 stimulus. In this chapter, we characterize responses of neurons as functions of 
 just one of the stimulus attributes to which they may be sensitive. The value of this 
-single attribute is denoted by \emph{s}. In chapter ??, we consider
+single attribute is denoted by \emph{s}. In chapter \ref{cha:Neural Encoding II}, we consider
 more complete stimulus characterizations.
 \end{rem}
 
@@ -417,23 +432,18 @@ we obtain the average firing rate, $ \langle r\rangle$, defined in Equation \ref
 
 \begin{exm}
   \label{fig:1.5}
-   We show extracellular recordings of a neuron in the primary visual cortex (V1) of 
-a monkey. While these recordings were being made, a
-bar of light was moved at different angles across the region of the visual
-field where the cell responded to light. This region is called the receptive 
-field of the neuron. Note that the number of action potentials fired
-depends on the angle of orientation of the bar.
-
-The dots in the figure B of example \ref{fig:1.5} indicate the average firing rate depends on the degrees of the orientation angle of the light bar stimulus.
-
+   We show extracellular recordings of a neuron in the primary visual cortex (V1) of a monkey. While these recordings were being made, a bar of light was moved at different angles across the region of the visual field where the cell responded to light (see figure A). This region is called the receptive  field of the neuron. Note that the number of action potentials fired depends on the angle of orientation of the bar.
+\begin{center}
+  \includegraphics[scale=0.32]{./png/fig_1_5.png}
+\end{center}
+The dots in figure B indicate the average firing rate depends on the degrees of the orientation angle of the light bar stimulus.
 The data have been fitted by a response tuning curve of the form of \emph{Gaussian tuning curve}
 \begin{equation}
   \label{equ:1.14}
-  f(s)=r_{\text{max}}\text{exp}\left(-\frac{1}{2}\left(\frac{s-s_{\text{max}}}{\sigma_f}\right)^2\right),
+  f(s)=r_{\text{max}}\text{exp}\left(-\frac{1}{2}\left(\frac{s-s_{\text{max}}}{\sigma_f}\right)^2\right).
 \end{equation}
-
 The curve  in figure B is a fit using
-the Equation \ref{equ:1.14} with parameters $r_{\text{max}} = 52 . 14 $Hz, $s_{\text{max}}= 0 ^\circ$,
+the Equation \ref{equ:1.14} with parameters $r_{\text{max}} = 52 . 14 $ Hz, $s_{\text{max}}= 0 ^\circ$,
  and $\sigma_f= 14 . 73 ^\circ $,
 where $s$ is the orientation angle of the light bar, $s_{\text{max}}$ is the orientation angle
 evoking the maximum average response rate $r_{\text{max}}$ (with $s-s_{\text{max}} $ taken 
@@ -441,10 +451,6 @@ to lie in the range between $- 90^\circ $ and $+90^\circ$  ), and $\sigma_f$ det
 width of the tuning curve. The neuron responds most vigorously when a stimulus
 having $s=s_{\text{max}} $ is presented, so we call $s_{\text{max}}$ the preferred orientation angle
 of the neuron.
-
-\begin{center}
-  \includegraphics[scale=0.38]{./png/fig_1_5.png}
-\end{center}
 \end{exm}
 
 \begin{rem}
@@ -463,41 +469,39 @@ a motor action.
   an action potential. The firing pattern of the cell, in particular the rate at
   which spikes are generated, is correlated with the direction of arm movement.% and thus 
   encodes information about this aspect of the motor action.
-
-  The dots in figure B of example \ref{fig:1.6} indicate the average firing rate depends 
+  \begin{center}
+    \includegraphics[scale=0.3]{./png/fig_1_6.png}
+  \end{center}
+  The dots in figure B indicate the average firing rate depends 
   on the degrees of the direction of the arm movement.
   Here the data points have
-  been fitted by a tuning curve in the form of a \emph{cosine tuning curve} to be half-wave 
-  rectified.
-\begin{equation}
+  been fitted by a tuning curve in the form of a \emph{cosine tuning curve}.
+  \begin{equation}
     \label{equ:1.16}
-    f(s)=[r_0+\left(r_{\text{max}}-r_0\right)\cos\left(s-s_{\text{max}}\right)]_+.
+    f(s)=[r_0+\left(r_{\text{max}}-r_0\right)\cos\left(s-s_{\text{max}}\right)]_+,
   \end{equation}
-
   where $s$ is the reaching angle of the arm, $s_{\text{max}}=161.25^\circ$ is the reaching 
   angle associated with the maximum response $r_{\text{max}}$, and $r_0=32.34$ Hz is an 
   offset or background
   firing rate that shifts the tuning curve up from the zero axis. 
-  \begin{center}
-    \includegraphics[scale=0.34]{./png/fig_1_6.png}
-  \end{center}
 \end{exm}
 
 \begin{exm}
   \label{fig:1.7}
-  The mode of retinal disparity. The gray lines with arrows show the
+  We show a mode of retinal disparity. The gray lines with arrows show the
 location on each retina of an object located nearer than the fixation point F. The
 image from the fixation point falls at the fovea in each eye, the small pit where
 the black lines meet the retina. The image from a nearer object falls to the left of
 the fovea in the left eye and to the right of the fovea in the right eye. For objects
 farther away than the fixation point, this would be reversed. The disparity angle $s$
 is indicated in the figure.
-
-The dots in figure B of example \ref{fig:1.7} indicate average firing rate of a V1 neuron depends on
+\begin{center}
+  \includegraphics[scale=0.3]{./png/fig_1_7.png}
+\end{center}
+The dots in figure B indicate average firing rate of a V1 neuron depends on
 retinal disparity and illustrates another important type of tuning curve.
-
 Here the data points have been fitted with a tuning curve called
-a logistic or sigmoidal function,
+a \emph{logistic function} or \emph{sigmoidal function},
 \begin{equation}
   \label{equ:1.17}
   f(s)=\frac{r_{\text{max}}}{1+\exp\left(\left(s_{1/2}-s\right)/\Delta_s\right)}.
@@ -507,9 +511,6 @@ that produces a firing rate half as big as the maximum value $r_{\text{max}}$ , 
 controls how quickly the firing rate increases as a function of $s$. If $\Delta_s$ is
 negative, the firing rate is a monotonically decreasing function of $s$ rather
 than a monotonically increasing function.
-\begin{center}
-  \includegraphics[scale=0.39]{./png/fig_1_7.png}
-\end{center}
 \end{exm}
 
 \subsection{Spike-Count Variability}

@@ -4,12 +4,8 @@
   \label{prin:retina}
   The conversion of a light stimulus into an electrical signal and ultimately an action potential sequence occurs in the retina.
   The retina is roughly composed of 3 layers of cells, \emph{photoreceptor cells}, \emph{bipolar cells} and \emph{ganglion cells}. First, photoreceptor cells convert light signals into electrical signals. And then, bipolar cells are responsible for sorting and processing these electrical signals. Finally, ganglion cells will convert electrical signals into action potential sequences.
-   In the intact eye, counterintuitively, light enters through the side opposite from the photoreceptors because Vertebrate retinal cell layers are arranged in reverse order of signaling.
+   In the intact eye, counterintuitively, light enters through the side opposite from the photoreceptors because vertebrate retinal cell layers are arranged in reverse order of signaling.
 \end{prin}
-
-\begin{rem}
-   Changing membrane potentials is adequate for signaling within the retina, where distances are small. However, it is inadequate for the task of conveying information from the retina to the brain. Thus, the ganglion cells are needed.
-\end{rem}
 
 \begin{exm}
   The following figure A is an anatomical diagram showing the five principal cell types of the retina and figure B is a rough circuit diagram and intracellular recordings made in neurons of the retina of a mud puppy (an amphibian). The rod cells, especially the one on the left side of figure B, are hyperpolarized by the light flash. This electrical signal is passed along to bipolar and horizontal cells through synaptic connections. Note that in one of the bipolar cells, the signal has been inverted, leading to depolarization. Pluses and minuses represent excitatory and inhibitory synapses, respectively.
@@ -18,6 +14,10 @@
     \includegraphics[scale=0.25]{./png/dogRetina}
   \end{center}
 \end{exm}
+
+\begin{rem}
+   Changing membrane potentials is adequate for signaling within the retina, where distances are small. However, it is inadequate for the task of conveying information from the retina to the brain. Thus, the ganglion cells are needed.
+\end{rem}
 
 \begin{defn}
   \label{defn:opticNerve}
@@ -34,7 +34,7 @@
 
 \begin{defn}
   \label{def:visualReceptiveField}
-  The restricted regions of the visual field where light stimuli could active Neurons in the retina, LGN, and primary visual cortex is called \emph{receptive fields of} the corresponding \emph{visual neuron}.
+  The restricted regions of the visual field where light stimuli could active Neurons in the retina, LGN, and primary visual cortex are called \emph{receptive fields of} the corresponding \emph{visual neurons}.
 \end{defn}
 
 \begin{asm}
@@ -99,7 +99,7 @@
 \begin{defn}
   \label{defn:PolarCoord}
   % Polar and Cartesian coordinate systems used to parameterize image location is shown in the following figure. Each rectangle represents a tangent screen, and the filled circle is the location of a particular image point on the screen.
-  Polar coordinate system used to parameterize image location is shown in the following figure.
+  The \emph{polar coordinate system} used to parameterize image location is shown in the following figure.
   \begin{center}
     \includegraphics[scale=0.15]{./png/polarCoord}
   \end{center}
@@ -107,12 +107,12 @@
 \end{defn}
 
 \begin{rem}
-  In most experiments, images are displayed on a tangent screen that does not coincide exactly with the sphere discussed in the previous paragraph. However, if the tangent screen is not too large, the difference is negligible, and the eccentricity and azimuth angles approximately coincide with polar coordinates on the screen.
+  In most experiments, images are displayed on a tangent screen that does not coincide exactly with the sphere discussed in Definition \ref{def:sphericalCoord}. However, if the tangent screen is not too large, the difference is negligible, and the eccentricity and azimuth angles approximately coincide with polar coordinates on the screen.
 \end{rem}
 
 \begin{asm}
   \label{asm:unit}
-  The eccentricity $\epsilon$ and the $x$ and $y$ coordinates of the Cartesian system that are based on measuring distances on the screen are converted to degrees by
+  In the following, the eccentricity $\epsilon$ and the $x$ and $y$ coordinates of the Cartesian system that are based on measuring distances on the screen are converted to degrees by
   \begin{equation}
     \label{equ:conversion}
     \frac{l}{r}\times\frac{180^{\circ}}{\pi},
@@ -126,17 +126,17 @@
 
 \begin{exm}
   \label{exm:cortexImage}
-  The following figure shows An autoradiograph of the posterior region of the primary visual cortex from the left side of a macaque monkey brain. The pattern is a radioactive trace of the activity evoked by an image like that in Definition \ref{def:sphericalCoord} figure. The vertical lines correspond to circles at eccentricities of $1^{\circ}$, $2.3^{\circ}$, and $5.4^{\circ}$, and the horizontal lines (from top to bottom) represent radial lines in the visual image at a values of $-90^{\circ}$, $-45^{\circ}$, $0^{\circ}$, $45^{\circ}$, and $90^{\circ}$. Only the part of cortex corresponding to the central region of the visual field on one side is shown.
+  The following figure shows an autoradiograph of the posterior region of the primary visual cortex from the left side of a macaque monkey brain. The pattern is a radioactive trace of the activity evoked by an image like that in the figure of Definition \ref{def:sphericalCoord}. The vertical lines correspond to circles at eccentricities of $1^{\circ}$, $2.3^{\circ}$, and $5.4^{\circ}$, and the horizontal lines (from top to bottom) represent radial lines in the visual image at a values of $-90^{\circ}$, $-45^{\circ}$, $0^{\circ}$, $45^{\circ}$, and $90^{\circ}$. Only the part of cortex corresponding to the central region of the visual field on one side is shown.
   \begin{center}
     \includegraphics[scale=0.2]{./png/exm_cortexImage}
     %\includegraphics[scale=0.15]{./png/exm_retinotopicMap}
   \end{center}
 \end{exm}
 
-\begin{rem}
+\begin{asm}
   \label{mapOnto}
   To construct the retinotopic map, we assume that eccentricity is mapped onto the horizontal coordinate $X$ of the cortical sheet, and $a$ is mapped onto its $Y$ coordinate.
-\end{rem}
+\end{asm}
 
 \begin{defn}
   \label{def:corticalMagnificationFactor}
@@ -148,23 +148,33 @@
   We assume the cortical magnification factor is isotropic, denoted by $M(\epsilon)$.
 \end{asm}
 
-\begin{exm}
-  Suppose that there are two image points in question $(\epsilon,a)$ and $(\epsilon+\Delta\epsilon,a)$, the angular distance between these two points is $\Delta\epsilon$, and the distance separating the activity evoked by these two image points on the cortex is $\Delta X$. By the definition of $M(\epsilon)$, these two quantities satisfy $\Delta X = M(\epsilon)\Delta\epsilon$ or, taking the limit as $\Delta X$ and $\Delta\epsilon$ go to $0$,
+\begin{prop}
+  $X$ and $Y$ as the functions of $\epsilon$ and $a$ satisfy
   \begin{equation}
     \label{equ:2.13}
-    \frac{dX}{d\epsilon} = M(\epsilon).
+    \frac{dX}{d\epsilon} = M(\epsilon),
   \end{equation}
-  Suppose that there are the other two image points in question $(\epsilon,a)$ and $(\epsilon,a+\Delta a)$, the angular distance between these two points is
-  \begin{displaymath}
-    \Delta a \times\frac{\epsilon\pi}{180^{\circ}},
-  \end{displaymath}
-  where $\epsilon$ corrects for the increase of arc length as a function of eccentricity, and $\frac{\pi}{180^{\circ}}$converts from degrees to radians. The separation on the cortex $\Delta Y$ corresponding to these points satisfies $\Delta Y = \Delta a \frac{\epsilon\pi}{180^{\circ}}M(\epsilon)$. Taking the limit $\Delta a \to 0$,
+  and
   \begin{equation}
     \label{equ:2.16}
     \frac{dY}{da} = -\frac{\epsilon\pi}{180^{\circ}}M(\epsilon).
   \end{equation}
+\end{prop}
+\begin{proof}
+  Suppose that there are two image points in question $(\epsilon,a)$ and $(\epsilon+\Delta\epsilon,a)$, the angular distance between these two points is $\Delta\epsilon$, and the distance separating the activity evoked by these two image points on the cortex is $\Delta X$. By the definition of $M(\epsilon)$, these two quantities satisfy $\Delta X = M(\epsilon)\Delta\epsilon$ or, taking the limit as $\Delta X$ and $\Delta\epsilon$ go to $0$,
+  \begin{displaymath}
+    \frac{dX}{d\epsilon} = M(\epsilon).
+  \end{displaymath}
+  Suppose that there are the other two image points in question $(\epsilon,a)$ and $(\epsilon,a+\Delta a)$, the angular distance between these two points is
+  \begin{displaymath}
+    \Delta a \times\frac{\epsilon\pi}{180^{\circ}},
+  \end{displaymath}
+  where $\epsilon$ corrects for the increase of arc length as a function of eccentricity, and $\frac{\pi}{180^{\circ}}$ converts from degrees to radians. The separation on the cortex $\Delta Y$ corresponding to these points satisfies $\Delta Y = \Delta a \frac{\epsilon\pi}{180^{\circ}}M(\epsilon)$. Taking the limit $\Delta a \to 0$,
+  \begin{displaymath}
+    \frac{dY}{da} = -\frac{\epsilon\pi}{180^{\circ}}M(\epsilon).
+  \end{displaymath}
   The minus sign in this relationship appears because the visual field is inverted on the cortex.
-\end{exm}
+\end{proof}
 
 \begin{exm}
   \label{exm:macaqueMonkey}
@@ -201,7 +211,6 @@
     Z = \lambda\ln(z).
   \end{displaymath}
   For this reason, the cortical map is sometimes called a \emph{complex logarithmic map}.
-
   For an image scaled radially by a factor $\gamma$, eccentricities change according to $\epsilon \to \gamma \epsilon$ while $a$ is unaffected. Scaling of the eccentricity produces a shift
   \begin{displaymath}
     X \to X+\lambda\ln(\gamma)
@@ -221,7 +230,7 @@
 
 \begin{defn}
   \label{defn:stimulusForm}
-  we describe the \emph{visual stimulus} by a function $s(x,y,t)$ that is proportional to the difference between the luminance at the point $(x,y)$ at time $t$ and the average or background level of luminance.
+  We describe the \emph{visual stimulus} by a function $s(x,y,t)$ that is proportional to the difference between the luminance at the point $(x,y)$ at time $t$ and the average or background level of luminance.
 \end{defn}
 
 \begin{rem}

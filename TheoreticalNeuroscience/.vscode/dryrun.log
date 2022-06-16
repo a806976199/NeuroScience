@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/ckj/file/brain/new_books/book/work/neuro-science/TheoreticalNeuroscience'
+pdflatex TheoreticalNeuroscience.tex
+pdflatex TheoreticalNeuroscience.tex
+make: Leaving directory '/home/ckj/file/brain/new_books/book/work/neuro-science/TheoreticalNeuroscience'
+ 

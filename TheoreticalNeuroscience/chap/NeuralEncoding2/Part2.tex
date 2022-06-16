@@ -30,8 +30,9 @@
   The \emph{error} of an estimate $r_{\rm{est}}(t)$ to an actual neural response $r(t)$ is defined as
   \begin{equation}
     \label{equ:2.3}
-    E = \frac{1}{T}\int_0^T(r_{\rm{est}}(t)-r(t))^2dt.
+    E = \frac{1}{T}\int_0^T(r_{\rm{est}}(t)-r(t))^2dt,
   \end{equation}
+  where $T$ is the duration of trials.
 \end{defn}
 
 \begin{defn}
@@ -46,7 +47,7 @@
     \label{equ:2.4}
     \int_0^{\infty}Q_{ss}(\tau-\tau')D(\tau')d\tau' = Q_{rs}(-\tau),
   \end{equation}
-  where $Q_{ss}(\tau) = \int s(t)s(t+\tau)/T$ is the stimulus autocorrelation function, and $Q_{rs}(\tau) = \int r(t)s(t+\tau)/T$ is the firing rate-stimulus correlation function, both of which were defined in chapter \ref{cha:Neural Encoding I}.
+  where $Q_{ss}(\tau) = \int_0^T s(t)s(t+\tau)/T dt$ is the stimulus autocorrelation function, and $Q_{rs}(\tau) = \int_0^T r(t) s(t+\tau)/T dt$ is the firing rate-stimulus correlation function, both of which were defined in chapter \ref{cha:Neural Encoding I}.
 \end{prop}
 \begin{proof}
   Using Equation \ref{equ:2.1} for the estimated firing rate, the expression in Equation \ref{equ:2.3} to be minimized is
@@ -100,12 +101,12 @@
 \end{proof}
 
 \begin{rem}
-  The method we are describing is a kind of reverse-correlation technique because the firing rate-stimulus correlation function is evaluated at $-\tau$ in equation\ref{equ:2.4}.
+  The method we are describing is a kind of reverse-correlation technique because the firing rate-stimulus correlation function is evaluated at $-\tau$ in Equation \ref{equ:2.4}.
 \end{rem}
 
 \begin{defn}
   \label{def:WhiteNoiseKernel}
-  The \emph{white-noise kernel} is the optimal kernel with a white-noise stimulus that satisfies $Q_{ss}(\tau) = \sigma_s^2\delta(\tau)$.
+  The \emph{white-noise kernel} is the optimal kernel with a white-noise stimulus that satisfies $Q_{ss}(\tau) = \sigma_s^2\delta(\tau)$ with some constant $\sigma_s$.
 \end{defn}
 
 \begin{prop}
@@ -118,7 +119,7 @@
   where $C(\tau)$ is the spike-triggered average stimulus and $\left<r\right>$ is the average firing rate of the neuron.
 \end{prop}
 \begin{proof}
-  The left side of Equation \ref{equ:2.4} is
+  The left side of Equation \ref{equ:2.4} equals to
   \begin{equation}
     \label{equ:2.5}
     \sigma_s^2\int_0^{\infty}\delta(\tau-\tau')D(\tau')d\tau' = \sigma_s^2D(\tau).
@@ -153,6 +154,10 @@
   \end{center}
 \end{exm}
 
+\begin{rem}
+  As the Example \ref{exm:flyH1LinearEstimate} shows, the linear rate estimate is a good agreement in regions where the measured rate varies slowly, but the estimate fails to capture high-frequency fluctuations of the firing rate, presumably because of nonlinear effects not captured by the linear kernel. Some such effects can be described by a static nonlinear function or including higher-order terms in a Volterra or Wiener expansion, as discussed below.
+\end{rem}
+
 %\subsection{The Most Effective Stimulus}
 \begin{defn}
   Neuronal selectivity is often characterized by describing stimuli that evoke maximal responses, subject to a constraint. This stimulus is called the \emph{most effective stimulus}.
@@ -167,7 +172,7 @@
   The \emph{fixed energy constraint} is
   \begin{equation}
     \label{equ:2.60}
-    \int_0^T\left(s(t')\right)^2dt' = constant,
+    \int_0^T\left(s(t')\right)^2dt' = \rm{constant},
   \end{equation}
   where the integral $\int_0^T\left(s(t')\right)^2dt'$ is called \emph{stimulus energy}.
 \end{defn}
@@ -190,20 +195,16 @@
       &+ \lambda\int_0^T\left(s(t')\right)^2dt',
     \end{aligned}
   \end{equation}
-  where $\lambda$ is the Lagrange multiplier. Setting the derivative of this expression with respect to the function s to 0 (similar with the derivative of $E$ in the solution to the proposition \ref{prop:OptimalLinearKernel}) gives \ref{equ:2.62}.
+  where $\lambda$ is the Lagrange multiplier. Setting the derivative of this expression with respect to the function s to 0 (similar with the derivative of $E$ in the solution to the proposition \ref{prop:OptimalLinearKernel}) gives Equation \ref{equ:2.62}.
 \end{proof}
 
 \begin{rem}
-  The value of $\lambda$ (which is less than $0$) in Equation \ref{equ:2.62} is determined by requiring that condition \ref{equ:2.60} is satisfied, but the precise value is not important for our purposes. The essential result is the proportionality between the optimal stimulus and $D(\tau)$.
+  The value of $\lambda$ (which is less than $0$) in Equation \ref{equ:2.62} is determined by requiring that condition Equation \ref{equ:2.60} is satisfied, but the precise value is not important for our purposes. The essential result is the proportionality between the optimal stimulus and $D(\tau)$.
 \end{rem}
 
 \begin{rem}
   The most effective stimulus analysis provides an intuitive interpretation of the linear rate estimate \ref{equ:2.1}. At fixed stimulus energy, the integral in \ref{equ:2.1} measures the overlap between the actual stimulus and the most effective stimulus. In other words, it indicates how well the actual stimulus matches the most effective stimulus. Mismatches between these two reduce the value of the integral and result in lower predictions for the firing
 rate.
-\end{rem}
-
-\begin{rem}
-  As the Example \ref{exm:flyH1LinearEstimate} shows, the linear rate estimate is a good agreement in regions where the measured rate varies slowly, but the estimate fails to capture high-frequency fluctuations of the firing rate, presumably because of nonlinear effects not captured by the linear kernel. Some such effects can be described by a static nonlinear function or including higher-order terms in a Volterra or Wiener expansion, as discussed below.
 \end{rem}
 
 \subsection{ Volterra and Wiener Expansion}
@@ -225,15 +226,15 @@ rate.
   \label{WienerExpansion}
   The series rearranged by Wiener from Equation \ref{equ:2.2} to make the terms easier to compute has the same first two terms of the Volterra expansion, and it is called \emph{Wiener expansion}.
   % The right side of Equation \ref{equ:2.1} is the first two terms of the Wiener expansion.
-  And the linear kernel $D$ is called the \emph{first Wiener kernel}.
+  The linear kernel $D$ is called the \emph{first Wiener kernel}.
 \end{defn}
 
 \subsection{Static Nonlinearities}
 \begin{rem}
   The linear prediction has two obvious problems:
   \begin{enumerate}[(i)]
-  \item there is nothing to prevent the predicted firing rate from becoming negative,
-  \item the predicted rate does not saturate, but instead increases without bound as the magnitude of the stimulus increases.
+  \item There is nothing to prevent the predicted firing rate from becoming negative.
+  \item The predicted rate does not saturate, but instead increases without bound as the magnitude of the stimulus increases.
   \end{enumerate}
   One way to deal with these and some of the other deficiencies of a linear prediction is to write the firing rate as a background rate plus a nonlinear function of the linearly filtered stimulus.
 \end{rem}
@@ -254,7 +255,7 @@ rate.
 \end{defn}
 
 \begin{exm}
-  $F$ can be extracted from data by means of the graphical procedure illustrated in the following figure. First, a linear estimate of the firing rate is computed using the optimal kernel defined by Equation \ref{equ:2.4}. Next, a plot is made of the pairs of points $(L(t),r(t))$ at various times and for various stimuli, where $r(t)$ the actual rate extracted from the data. There will be a certain amount of scatter in this plot due to the inaccuracy of the estimation. $F$ can be extracted by fitting a function to the points on the scatter plot.
+  $F$ can be extracted from data by means of the graphical procedure illustrated in the following figure. First, a linear estimate of the firing rate is computed using the optimal kernel defined by Equation \ref{equ:2.4}. Second, a plot is made of the pairs of points $(L(t),r(t))$ at various times and for various stimuli, where $r(t)$ the actual rate extracted from the data. There will be a certain amount of scatter in this plot due to the inaccuracy of the estimation. $F$ can be extracted by fitting a function to the points on the scatter plot.
   \begin{center}
     \includegraphics[scale=0.3]{./png/staticNonlinearity}
   \end{center}
@@ -346,12 +347,12 @@ rate.
 
 \begin{rem}
   In some cases, the linear term fails to predict even when static nonlinearities are included and in practice including more terms in the Volterra series is quite difficult to go beyond the first few terms. We can replace the parameter $s$ in Equation \ref{equ:2.7} with an appropriately chosen function of $s$ to improve the accuracy, that is,
-  \begin{equation}
+  \begin{displaymath}
     \label{equ:2.12}
     L(t) = \int_0^{\infty}D(\tau)f(s(t-\tau))d\tau.
-  \end{equation}
+  \end{displaymath}
   A reasonable choice for this function is the response tuning curve.
-  For time-dependent stimuli, we can think of Equation \ref{equ:2.12} as a dynamic extension of the response tuning curve.
+  For time-dependent stimuli, we can think of this equation as a dynamic extension of the response tuning curve.
 \end{rem}
 
 

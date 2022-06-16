@@ -1,15 +1,791 @@
-\section{3.3}
-\label{sec:3.3}
+\section{Population Decoding}
+\label{sec:Population Decoding}
+
+\begin{rem}
+  The use of large numbers of neurons to represent information is a basic
+operating principles of many nervous systems. \emph{Population coding} has a
+number of advantages, including reduction of uncertainty due to neuronal
+variability and the ability to represent a number of different
+stimulus attributes simultaneously. In the previous section, we
+discussed discrimination between stimuli on the basis of the response of
+a single neuron. The responses of a population of neurons can also be
+used for discrimination, with the only essential difference being that terms
+such as $p[r|s]$ are replaced by $p[\mathbf{r}|s]$, the conditional
+probability density of the population response $\mathbf{r}$. ROC
+analysis, likelihood ratio tests, and the Neyman-Pearson lemma continue to apply in exactly the same way.
+\end{rem}
+
+\begin{rem}
+  \emph{Discrimination} is a special case of decoding in which only a
+  few different stimulus values are considered. A more general problem
+  is the extraction of a continuous stimulus parameter from one or
+  more neuronal responses. In this section, we study how the value of a continuous parameter associated with a static stimulus can be decoded from the spike-count firing
+rates of a population of neurons.
+\end{rem}
+
+\subsection{Encoding and Decoding Direction}
+\begin{exm}
+  The cercal system of the cricket, which senses the direction of incoming air
+currents is an interesting example of population coding involving a
+four interneurons. The figure shows average firing-rate tuning curves
+for the four relevant interneurons as a function of wind
+direction, which are well approximated by halfwave rectifed cosine
+function. The preferred directions of the neurons are located $90^{\circ}$ from each other, and $r_{\max}$
+values are typically around 40 Hz.
+\end{exm}
+
+\begin{center}
+  \includegraphics[scale = 0.4]{./png/3-4}
+\end{center}
 
 \begin{prop}
-  The mass of fluid in a region $W$ at time $t$ is
-  \begin{equation}
-    \label{eq:totalMass}
-    m(W,t) = \int_W\rho(\mathbf{x},t)\dif V,
-  \end{equation}
-  where $\dif V$ is the area element in the plane
-  or the volume element in space.
+  \label{prop:single neuron cosine function}
+  Neuron $a$ (where $a=1,2,3,4$) responds
+with a maximum average firing rate when the angle of the wind direction
+is $s_{a}$, the preferred-direction angle for that neuron. The tuning curve for
+interneuron a in response to wind direction $s$, $\left\langle r_{a}
+\right\rangle=f_a(s)$, normalized to its maximum, can be written as
+\begin{equation}
+  \label{eq:3.20}
+  \Big( \frac{f(s)}{r_{\max}} \Big)_{a}=[(\cos(s-s_a))]_+,
+\end{equation}
+where the half-wave rectifcation eliminates negative firing rates. Here
+$r_{\max}$, which may be different for each neuron, is a constant equal to the
+maximum average firing rate.
 \end{prop}
+
+\begin{prop}
+ For  the cercal system of the cricket, Equation \ref{eq:3.20} can be written as
+  \begin{equation}
+  \label{eq:3.21}
+ \Big( \frac{f(s)}{r_{\max}} \Big)_{a}=[\vec{v}\cdot\vec{c}_a].
+\end{equation}
+where spatial vector $\vec{v}$ pointing parallel to the wind velocity in place of the angle
+$s$ and having unit length $\big| \vec{v} \big|=1$ and a vector
+  $\vec{c}_{a}$  of unit length is the preferred wind direction  pointing in the
+  direction specified by the angle $s_{a}$ for each interneuron.
+
+\begin{proof}
+In this case, we can use the vector dot product to write
+$\cos(s-s_a)=\vec{v}\cdot\vec{c}_a$. In terms of these
+vectors, the average firing rate is proportional to a half-wave
+rectified projection of the wind direction vector onto the
+preferred direction axis of the neuron. And combined with the above
+proposition \ref{prop:single neuron cosine function}, we give the answer.
+\end{proof}
+
+\end{prop}
+
+\begin{rem}
+  Decoding the cercal system is particularly easy because of the close relationship between the representation of wind direction it provides and a
+two-dimensional Cartesian coordinate system. The preferred directions
+of the four interneurons, like the $x$ and $y$ axes of a Cartesian coordinate
+system, lie along two perpendicular directions. Four neurons
+are required, rather than two, because firing rates cannot represent negative projections.
+\end{rem}
+
+\begin{prop}
+  If $r_{a}$ is the spike-count fring rate of neuron $a$, an estimate of
+  the wind direction on any given trial can be obtained from the
+  direction of the vector
+  \begin{equation}
+    \label{eq:3.22}
+    \vec{v}_{\rm{pop}}=\sum\limits_{a=1}^4\left( \frac{r}{r_{\max}} \right)_a\vec{c}_a.
+  \end{equation}
+  This vector is known as the \emph{population vector}, and the associated decoding
+  method is called the \emph{vector method}. In fact, this encoding is
+  the one that requires the least number of neurons to encode
+  two-dimensional directions.
+\end{prop}
+
+\begin{exm}
+In figure A, preferred directions of four cercal interneurons in relation to the
+cricket’s body. The firing rate of each neuron for a fixed wind speed is proportional to the projection of the wind velocity vector $\vec{v}$ onto the preferred-direction
+axis of the neuron. The projection directions
+$\vec{c}_{1}$, $\vec{c}_{2}$, $\vec{c}_{3}$, and $\vec{c}_{4}$ for the four neurons
+are separated by  $90^{\circ}$, and they collectively form a Cartesian coordinate system.
+In figure B, the root-mean-square error in the wind direction determined by vector decoding of the firing rates of four cercal interneurons. These results were obtained
+through simulation by randomly generating interneuron responses to a variety of
+wind directions, with the average values and trial-to-trial variability of the firing
+rates matched to the experimental data. The generated rates were then decoded
+using Equation \ref{eq:3.22} and compared to the wind direction used
+to generate them.
+   \begin{center}
+    \includegraphics[scale = 0.4]{./png/3-5}
+    \label{fig:3.5AB}
+  \end{center}
+  \end{exm}
+
+\begin{exm}
+  As discussed in chapter \ref{cha:Neural Encoding I}, tuning curves of certain neurons in the primary
+motor cortex (M1) of the monkey can be described by cosine functions of
+arm movement direction. Thus, a vector decomposition similar to that
+of the cercal system appears to take place in M1. Many M1 neurons have
+nonzero offset rates, $r_{0}$. When an arm movement is made in the direction represented by a vector of unit length, $\vec{v}$, the average fring rates for such a M1
+neuron, labeled by an index $a$, can be written as
+\begin{equation}
+  \label{eq:3.23}
+  \left( \frac{\left\langle r \right\rangle-r_{0} }{r_{\max}}\right)_{a}=\left( \frac{f(s)-r_{0}}{r_{\max}} \right)_{a}=\vec{v}\cdot\vec{c}_a,
+\end{equation}
+where $\vec{c}_a$ is the preferred-direction vector that defines the
+selectivity of the neuron. Unlike the cercal interneurons, M1 neurons
+do not have orthogonal preferred directions that form a Cartesian
+coordinate system. Instead, the preferred directions of the neurons appear to point in all directions with
+roughly equal probability.
+\end{exm}
+
+\begin{prop}
+  If the preferred directions point uniformly in all directions and
+  the number of neurons $N$ is suffciently large, the population vector
+  \begin{equation}
+      \label{eq:3.24}
+    \vec{v}_{\rm{pop}}=\sum\limits_{a=1}^N \left( \frac{r-r_{0}}{r_{\max}} \right)_a\vec{c}_a,
+  \end{equation}
+will, on average, point in a direction parallel to the arm movement direction vector $\vec{c}$. If we average Equation \ref{eq:3.24} over
+trials and use Equation \ref{eq:3.23}, we find
+\begin{equation}
+  \label{eq:3.25}
+  \left\langle  \vec{v}_{\rm{pop}} \right\rangle=\sum_{a=1}^N{(\vec{v}\cdot\vec{c}_a)\vec{c}_a},
+\end{equation}
+ where $\vec{v}_{\rm{pop}}$ is approximately parallel
+to $\vec{v}$ if a large enough number of neurons is included in the sum, and
+if their preferred-direction vectors point randomly in all directions with
+equal probability.
+\end{prop}
+
+\subsection{Optimal Decoding Methods}
+
+\begin{rem}
+  The vector method is a simple decoding method that can perform quite
+well in certain cases, but it is neither a general nor an optimal way
+to reconstruct a stimulus from the fring rates of a population of
+neurons. In
+this section, we dicuss two methods, that are Bayesian inference and MAP
+inference, which are considered optimal by some measure.
+\end{rem}
+
+\begin{rem}
+  \emph{Bayesian} and \emph{MAP} estimates use the conditional
+  probability that a stimulus parameter takes a value between $s$ and
+  $s+\nabla s$, given that the set of $N$ encoding neurons fired at
+  rates given by $\mathbf{r}$. The probability density needed for a
+  continuous stimulus parameter, $p[s|\mathbf{r}]$, can be obtained from
+  the encoding probability density $p[\mathbf{r}|s]$ by the continuous version of Bayes
+theorem,
+\begin{equation}
+  \label{eq:3.26}
+  p[s|\mathbf{r}]=\frac{p[\mathbf{r}|s]p[s]}{p[\mathbf{r}]}.
+\end{equation}
+A disadvantage of these methods is that extracting $p[s|\mathbf{r}]$ from experimental data can be diffcult.
+\end{rem}
+
+\begin{defn}
+  Below are the two optimal ways to reconstruct a stimulus from the
+  fring rates of a population of neurons:
+  \begin{enumerate}[(i)]
+  \item The \emph{Bayesian inference} involves finding the minimum of a loss
+  function $L(s,s_{\rm{bayes}})$ that quantifyes the cost of reporting
+  the estimate $s_{\rm{bayes}}$ when the correct answer is $s$.
+  \item  The \emph{MAP inference} chooses the stimulus value, $s_{\rm{MAP}}$,
+  that maximizes the conditional probability density of the stimulus,
+  $p[s_{\rm{MAP}}|\mathbf{r}]$ and \emph{ML inference} chooses
+  $s_{\rm{ML}}$ to maximize the likelihood function,
+  $p[\mathbf{r}|s_{\rm{ML}}]$, which generally produce estimates
+  that are as accurate, in terms of the variance of the estimate, as
+  any that can be achieved by a wide class of estimation methods
+  (so-called unbiased estimates).
+  \end{enumerate}
+\end{defn}
+
+\begin{rem}
+  The value of $s_{\rm{bayes}}$ is chosen to minimize the expected
+loss averaged over all stimuli for a given set of rates, that is, to minimize
+the function $\int L(s,s_{\rm{bayes}})p[s|\mathbf{r}]ds$.
+\end{rem}
+
+\begin{exm}
+  If the loss function is the squared difference between the estimate
+  and the true value, $ L(s,s_{\rm{bayes}})=(s-s_{\rm{bayes}})^{2}$, the
+  estimate that minimizes the expected loss is the mean
+  \begin{equation}
+    \label{eq:3.27}
+    s_{\rm{bayes}}=\int p[s|\mathbf{r}]ds.
+  \end{equation}
+\end{exm}
+
+\begin{exm}
+ If the loss function is the absolute value of the
+ difference, $L(s,s_{\rm{bayes}})=\big|s-s_{\rm{bayes}} \big|$, then
+ $s_{\rm{bayes}}$ is the median rather than the mean of the
+ distribution $p[s|\mathbf{r}]$.
+\end{exm}
+
+
+\begin{rem}
+  The MAP approach is thus to choose as the estimate $s_{\rm{MAP}}$ the most
+  likely stimulus value for a given set of rates. If the prior or
+  stimulus probability density $p[s]$ is independent of $s$, then
+  $p[s|\mathbf{r}]$ and $p[\mathbf{r}|s]$ have the same dependence on
+  $s$, because the factor $p[s]/p[\mathbf{r}]$ in Equation \ref{eq:3.26} is independent of $s$. In this case, the MAP algorithm is equivalent to  maximum likelihood (ML) inference.
+\end{rem}
+
+\begin{exm}
+  The root-mean-squared difference between
+the true and estimated wind directions for the cercal system, using ML
+and Bayesian methods is shown as follows. The Bayesian estimate in figure is based on the squared-difference loss function. Both
+estimates use a constant stimulus probability density $p[s]$, so the ML and
+MAP estimates are identical. The Bayesian result has a slightly
+smaller average error across all angles. The dips in the error curves in figure
+appear at angles where one tuning curve peaks and two others rise from
+threshold. These dips are due to the two
+neurons responding near threshold, not to the maximally responding neu-
+ron. They occur because neurons are most sensitive at points where their
+tuning curves have maximum slopes, which in this case is near threshold.
+\begin{center}
+  \includegraphics[scale = 0.4]{./png/3-7}
+\end{center}
+\end{exm}
+
+
+\begin{exm}
+  \label{exm:Gaussian tuning curves}
+  Up to now, we have considered the decoding of a direction angle. We now
+turn to the more general case of decoding an arbitrary continuous stimulus
+parameter. An instructive example is provided by an array of $n$ neurons
+with preferred stimulus values distributed uniformly across the full range
+of possible stimulus values. An example of such an array for Gaussian
+tuning curves,
+\begin{equation}
+  \label{eq:3.28}
+  f_a(s)=r_{\rm{max}}\exp\left(-\frac{1}{2}\left(
+      \frac{s-s_{a}}{\sigma_{a}} \right)^{2}\right).
+\end{equation}
+In this example, each neuron has a tuning curve
+with a different preferred value $s_{a}$ and potentially a different
+width $\sigma_{a}$. If the tuning curves are evenly and densely distributed across the range of $s$ values, the
+sum of all tuning curves
+$\sum f_a(s)$ is approximately independent of $s$. The roughly flat line is proportional to this sum.
+\begin{center}
+  \label{fig:3-8}
+  \includegraphics[scale = 0.4]{./png/3-8}
+\end{center}
+\end{exm}
+
+\begin{rem}
+  To implement the Bayesian, MAP, or ML approach, we need to
+know the conditional firing-rate probability density $p[\mathbf{r}|s]$ that describes
+this variability.
+\end{rem}
+
+\begin{prop}
+  \label{prop:conditional firing-rate probability density}
+  We assume that the firing rate $r_{a}$ of neuron $a$ is determined
+by counting $n_{a}$ spikes over a trial of duration $T$ (so that $r_{a} = n_{a}/T$), and
+that the variability can be described by the homogeneous Poisson model
+discussed in chapter \ref{cha:Neural Encoding I}. In this case, the probability of stimulus s evoking
+$n_{a}=r_{a}T$ spikes, when the average firing rate is $\left\langle
+  r_{a} \right\rangle=f_a(s)$, is given by
+\begin{equation}
+  \label{eq:3.29}
+  P[r_a|s]=\frac{(f_a(s)T)^{r_aT}}{(r_aT)!}\exp(-f_{a}(s)T).
+\end{equation}
+If we assume that each neuron fires independently, the firing-rate
+probability for the population is the product of the individual
+probabilities,
+\begin{equation}
+  \label{eq:3.30}
+   P[\mathbf{r}|s]=\prod\limits_{a=1}\limits^{N}{\frac{(f_a(s)T)^{r_{a}T}} {(r_aT)!}\exp(-f_{a}(s)T)}.
+\end{equation}
+\end{prop}
+
+\begin{exm}
+  The filled circles in figure show a set of randomly generated firing rates
+for the array of Gaussian tuning curves for $s=0$ shown above. This figure
+also illustrates a useful way of visualizing population responses: plotting
+the responses as a function of the preferred stimulus values. The dashed
+curve is the tuning curve for the neuron with $s_{a}=0$. Because
+the tuning curves are functions of $\left| s-s_{a} \right|$, the values of the dashed curve at
+$s_{a}=-5,-4,\dots,5$ are the mean activities of the cells with preferred values
+at those locations for a stimulus at $s=0$.
+\begin{center}
+    \label{fig:3-9}
+  \includegraphics[scale = 0.4]{./png/3-9}
+\end{center}
+\end{exm}
+
+\begin{prop}
+  The ML estimated stimulus, $s_{ML}$, is the stimulus that maximizes $P[\mathbf{r}|s]$. We
+find that $s_{\rm{ML}}$ is determined by
+\begin{equation*}
+  T\sum\limits_{a=1}\limits^{N}{r_{a}\frac{f_{a}'(s_{ML})}{f_{a}(s_{ML})}}=0,
+\end{equation*}
+where the prime denotes a derivative.
+\begin{proof}
+ To apply the ML estimation algorithm, we only need to consider the terms
+in $P[\mathbf{r}|s]$ that depend on $s$. Because Equation
+\ref{eq:3.30} involves a product, it is convenient to take its logarithm and write
+\begin{equation}
+  \label{eq:3.31}
+  \ln P[\mathbf{r}|s]=T\sum\limits_{a=1}\limits^{N}{r_{a}\ln \left( f_a(s) \right)}+\dots,
+\end{equation}
+where the ellipsis represents terms that are independent
+or approximately independent of $s$, including, as discussed above,
+$\sum{f_a(s)}$.
+ Setting the derivative to $0$, we give the answer.
+ \end{proof}
+\end{prop}
+
+\begin{exm}
+  If the tuning curves are the Gaussians of Equation \ref{eq:3.28},
+  this equation can be solved explicitly using the result
+  $f_{a}'(s)/f_a(s)=(s_{a}-s)/\sigma_{a}^{2}$,
+    \begin{equation}
+      \label{eq:3.33}
+      s_{\rm{ML}}=\frac{\sum{r_as_a/\sigma_{a}^{2}}}{\sum{r_a/\sigma_{a}^{2}}}.
+    \end{equation}
+    If all the tuning curves have the same width, this reduces to
+    \begin{equation}
+      \label{eq:3.34}
+      s_{\rm{ML}}=\frac{\sum{r_as_a}}{\sum{r_a}},
+  \end{equation}
+  which is a simple estimation formula with an intuitive interpretation as
+the firing-rate weighted average of the preferred values of the encoding
+neurons.
+\end{exm}
+
+\begin{rem}
+  Although the stimuli obtained by maximum likelihood estimation are
+  the weighted average of the best responses. This result looks very
+  good, but under the influence of noise, this method may reduce the
+  accuracy. The MAP algorithm allows us to include prior knowledge $p[s]$
+about the distribution of stimulus values in the decoding estimate. When using
+  MAP, The objective function will have one more term $\log(p[s])$
+  and the maximum value can still be obtained by derivation. If the
+  $p[s]$ is constant, the MAP and ML estimates are
+  identical.
+
+   Inaddition, if many neurons are observed, or if a small
+  number of neurons is observed over a long trial period, even a
+  nonconstant stimulus distribution has little effect and $s_{\rm{MAP}}\approx s_{\rm{ML}}$.
+\end{rem}
+
+\begin{prop}
+  The MAP estimate is computed from the distribution $p[s|\mathbf{r}]$ determined by
+Bayes theorem. In terms of the logarithms of the probabilities, $\ln
+p[s|\mathbf{r}]=\ln p[\mathbf{r}|s]+\ln p[s]-\ln P[r]$. The last
+term in this expression is independent of $s$ and can be absorbed into the ignored $s$-independent terms, so we can
+write, as in Equation \ref{eq:3.31},
+\begin{equation}
+  \label{eq:3.35}
+ \ln p[s|\mathbf{r}]=T\sum\limits_{a=1}\limits^{N}{r_{a}\ln \left(
+     f_a(s) \right)+\ln p[s]+\dots}.
+ \end{equation}
+ Maximizing this determines the MAP estimate,
+ \begin{equation}
+   \label{eq:3.36}
+    T\sum\limits_{a=1}\limits^{N}{\frac{r_{a}f_{a}'(s_{\rm{MAP}})}{f_{a}(s_{MAP})}}+\frac{p'[s_{\rm{MAP}}]}{p[s_{\rm{MAP}}]}=0.
+ \end{equation}
+\end{prop}
+
+\begin{exm}
+  If the stimulus or prior distribution is itself Gaussian with mean
+  $s_{\rm{prior}}$  and
+variance  $\sigma_{\rm{prior}}$ , and we use the Gaussian array of tuning curves,
+Equation \ref{eq:3.36} yields
+\begin{equation}
+  \label{eq:3.37}
+s_{\rm{MAP}}=\frac{T\sum{r_as_a}/\sigma_a^{2}+s_{\rm{prior}}/\sigma_{{\rm{prior}}}^{2}}{T\sum{r_a/\sigma_a^{2}}+1/\sigma_{{\rm{prior}}}^{2}}.
+\end{equation}
+\end{exm}
+
+\begin{exm}
+  The figure compares the conditional stimulus probability densities $p[s|\mathbf{r}]$
+for a constant stimulus distribution (solid curve) and for a Gaussian stimulus distribution with $s_{\rm{prior}}=-2$ and $\sigma_{{\rm{prior}}}=1$, using the firing rates given
+by the filled circles in last figure. If the stimulus distribution is constant,
+$p[s|\mathbf{r}]$ peaks near the true stimulus value of $0$. The effect of a noncon-
+stant stimulus distribution is to shift the curve toward the value $-2$, where
+the stimulus probability density has its maximum, and to decrease its
+width by a small amount. The estimate is shifted to the left because the
+prior distribution suggests that the stimulus is more likely to take
+negative values than positive ones, independent of the evoked
+response. The decreased width is due to the added information that the prior distribution provides.
+
+\begin{center}
+    \label{fig:3-10}
+  \includegraphics[scale = 0.4]{./png/3-10}
+\end{center}
+\end{exm}
+
+
+\begin{defn}
+  \label{defn:bias}
+  The accuracy with which an estimate $s_{\rm{est}}$ describes a
+  stimulus $s$ can be characterized by two important quantities, its
+  bias $b_{\rm{est}}(s)$ and its variance
+$\sigma_{\rm{est}}^{2}(s)$. The bias is the difference between the
+average of $s_{\rm{est}}$ across trials that use the stimulus $s$ and the true
+value of the stimulus (i.e., $s$),
+\begin{equation}
+  \label{eq:3.38}
+  b_{\rm{est}}(s)=\left\langle s_{\rm{est}} \right\rangle-s.
+\end{equation}
+\end{defn}
+
+\begin{defn}
+  An estimate is termed unbiased if $b_{\rm{est}}(s)=0$ for all stimulus values.
+\end{defn}
+
+\begin{defn}
+  The variance of the estimator, which quantifies how much the estimate
+  varies about its mean value, is defined as
+  \begin{equation}
+    \label{eq:3.39}
+    \sigma_{\rm{est}}^{2}(s)=\left\langle (s_{\rm{est}} -\left\langle s_{\rm{est}}  \right\rangle)^{2} \right\rangle.
+  \end{equation}
+\end{defn}
+
+\begin{prop}
+  The bias and variance can be used to compute the trial-average
+  squared estimation error, $\left\langle (s_{\rm{est}} -s)^{2}\right\rangle$. This is a measure of the spread of the estimated values about the true value of the stimulus. Considering Definition \ref{defn:bias}, we can write the squared estimation error as
+    \begin{equation}
+      \label{eq:3.40}
+      \left\langle (s_{\rm{est}} -s)^{2} \right\rangle=\left\langle (s_{\rm{est}} -\left\langle s_{\rm{est}}  \right\rangle+ b_{\rm{est}}(s))^{2} \right\rangle=\sigma_{\rm{est}}^{2}(s)+b_{\rm{est}}^{2}(s).
+    \end{equation}
+    In other words, the average squared estimation error is the sum of the
+variance and the square of the bias. For an unbiased estimate, the average
+squared estimation error is equal to the variance of the estimator.
+\end{prop}
+
+\begin{rem}
+  In general, minimizing the decoding error in Equation
+  \ref{eq:3.40} involves a trade-off between minimizing the bias and
+  minimizing the variance of the estimator.
+\end{rem}
+
+\subsection{Fisher Information}
+\begin{rem}
+  Decoding can be used to limit the accuracy with which a neural system
+encodes the value of a stimulus parameter because the encoding accuracy
+cannot exceed the accuracy of an optimal decoding method.
+\end{rem}
+
+\begin{defn}
+  The \emph{Fisher
+information} is a quantity that provides one such measure of encoding
+accuracy. Through a bound known as the \emph{Cramér-Rao bound}, the Fisher
+information limits the accuracy with which any decoding scheme can extract an estimate of an encoded quantity.
+\end{defn}
+\begin{prop}
+  The Cramér-Rao lower bound for an estimator $s_{\rm{est}}$ is based on the Cauchy-
+  Schwarz inequality, which states that for any two quantities A and B,
+  \begin{equation}
+    \label{eq:3.67}
+    \langle A^2\rangle \langle B^2\rangle\geq\langle AB\rangle^2.
+    \end{equation}
+
+\begin{proof}
+ Note that
+\begin{equation}
+  \left\langle\left(\langle B^2\rangle A-\langle
+AB\rangle B\right)^2\right\rangle\geq0
+\label{eq:3.68}
+\end{equation}
+because it is the average value of a square. Computing the square
+gives
+\begin{equation}
+\langle B^2\rangle^2\langle A^2\rangle-\langle AB\rangle^2\langle B^2\rangle\geq0
+\label{eq:3.69}
+\end{equation}
+from which the inequality follows directly.
+\end{proof}
+\end{prop}
+
+\begin{prop}
+  The \emph{Cramér-Rao bound} limits the variance of any estimate $s_{\rm{est}}$
+  according to
+  \begin{equation}
+    \label{eq:3.41}
+     \sigma_{\rm{est}}^{2}(s)\geq \frac{\left( 1+b_{\rm{est}}'(s) \right)^{2}}{I_{\rm{F}}(s)},
+   \end{equation}
+   where $b_{\rm{est}}'(s)$ is the derivative of $b_{\rm{est}}(s)$ and $I_{\rm{F}}(s)$ is the Fisher
+   information.
+
+\begin{proof}
+Consider the inequality of Equation \ref{eq:3.67}
+   with $A=\partial \ln p/\sigma_{\rm{est}}^{2}$
+   The Cauchy-Schwarz inequality then gives
+\begin{equation}
+\sigma_{\rm{est}}^2(s)I_F\geq\left\langle\frac{\partial \ln p[\mathbf{r}|s]}{\partial s}(s_{\rm{est}}-\langle s_{\rm{est}}\rangle)\right\rangle^2.
+\label{eq:3.70}
+\end{equation}
+To evaluate the expression on the right side of the inequality \ref{eq:3.70}), we differentiate the defining equation for the bias (Equation \ref{eq:3.38}),
+  \begin{equation}
+s+b_{\rm{est}}(s)=\langle s_{\rm{est}}\rangle=\int p[\mathbf{r}|s]s_{\rm{est}}d\mathbf{r},
+\label{eq:3.71}
+\end{equation}
+with respect to $s$ to obtain
+\begin{equation}
+\begin{aligned}
+1+b_{\rm{est}}^{'}(s)&=\int\frac{\partial p[\mathbf{r}|s]}{\partial s}s_{\rm{est}}d\mathbf{r}\\
+&=\int p[\mathbf{r}|s]\frac{\partial\ln p[\mathbf{r}|s]\partial}{\partial s}s_{\rm{est}}d\mathbf{r}\\
+&=\int p[\mathbf{r}|s]\frac{\partial\ln p[\mathbf{r}|s]\partial}{\partial s}(s_{\rm{est}}-\langle s_{\rm{est}}\rangle).
+\end{aligned}
+\label{eq:3.72}
+\end{equation}
+The last equality follows from the identity
+\begin{equation}
+\int p[\mathbf{r}|s]\frac{\partial\ln p[\mathbf{r}|s]}{\partial s}\langle s_{\rm{est}}\rangle d\mathbf{r}=\langle s_{\rm{est}}\rangle\int\frac{\partial p[\mathbf{r}|s]}{\partial s}d\mathbf{r}=0,
+\label{eq:3.73}
+\end{equation}
+because $\int p[\mathbf{r}|s]d\mathbf{r}=1$. The last line of equation  \ref{eq:3.72} is just another way
+of writing the expression being squared on the right side of the inequality
+\ref{eq:3.70}, so combining this result with the inequality gives
+\begin{equation}
+\sigma_{\rm{est}}^2(s)I_F\geq(1+b_{\rm{est}}^{'}(s))^2,
+\label{eq:3.74}
+\end{equation}
+which, when rearranged, is the Cramér-Rao bound of Equation \ref{eq:3.41}.
+\end{proof}
+\end{prop}
+
+\begin{prop}
+  If we assume here that the firing rates take continuous values and
+  that their distribution in response to a stimulus $s$ is described
+  by the conditional probability density $p[\mathbf{r}|s]$(assuming
+  the latter is sufficiently smooth) by, $I_{\rm{F}}(s)$ can be written as
+\begin{equation}
+  \label{eq:3.42}
+  I_{\rm{F}}(s)=\left\langle
+    -\frac{\partial^{2}\ln p[\mathbf{r}|s]}{\partial s^{2}}
+  \right\rangle=\int p[\mathbf{r}|s]\left( -\frac{\partial^{2}\ln p[\mathbf{r}|s]}{\partial s^{2}} \right)d\mathbf{r},
+\end{equation}
+We can verify that the Fisher information can also be written as
+\begin{equation}
+  \label{eq:3.43}
+  \left\langle \left( \frac{\partial\ln p[\mathbf{r}|s]}{\partial s} \right)^{2}
+  \right\rangle=\int p[\mathbf{r}|s]\left( \frac{\partial\ln p[\mathbf{r}|s]}{\partial s} \right)^{2}d\mathbf{r}.
+\end{equation}
+\end{prop}
+
+\begin{rem}
+  As Equation \ref{eq:3.42} shows, the Fisher information is a measure of the expected curvature of the log likelihood at the stimulus value
+$s$. Curvature is important because the likelihood is expected to be at
+a maximum near the true stimulus value $s$ that caused the
+responses. Therefore, we can get two cases:
+\begin{enumerate}[(i)]
+\item If the likelihood is very curved, and thus the Fisher information is
+large, responses typical for the stimulus $s$ are much less likely to
+occur for slightly different stimuli. Therefore, the typical response
+provides a strong indication of the value of the stimulus.
+\item If the
+likelihood is fairly flat, and thus the Fisher information is small,
+responses common for $s$ are likely to occur for slightly different
+stimuli as well. Thus, the response does not as clearly determine the stimulus value.
+\end{enumerate}
+\end{rem}
+
+\begin{rem}
+  The Fisher information is purely local in the sense that it
+does not reflect the existence of stimulus values completely different from
+$s$ that are likely to evoke the same responses as those evoked by $s$ itself.
+\end{rem}
+
+\begin{rem}
+  The Cramér-Rao bound sets a limit on the accuracy of any unbiased estimate of the stimulus. When $b_{\rm{est}}(s)=0$, Equation
+\ref{eq:3.40} indicates that the average squared estimation error is
+equal to $\sigma_{\rm{est}}^{2}$ and, by Equation \ref{eq:3.41}, this
+satisfies the bound $\sigma_{\rm{est}}^{2} \geq
+1/I_{\rm{F}}(s)$. Provided that we restrict ourselves to unbiased
+decoding schemes, the Fisher information sets an absolute limit on
+decoding accuracy, and it thus provides a useful limit on encoding
+accuracy. In some cases, biased schemes may produce more accurate
+results than unbiased ones. For a biased estimator, the average
+squared estimation error and the variance of the estimate are not
+equal, and the estimation error can be either larger or smaller than $1/I_{\rm{F}}(s)$ .
+\end{rem}
+
+\begin{rem}
+  The limit on decoding accuracy set by the Fisher information can be
+  attained by a decoding scheme we have studied, the maximum
+  likelihood method. In the limit of large numbers of encoding
+  neurons, and for most firing-rate distributions, the ML estimate is unbiased and saturates the
+Cramér-Rao bound.
+\end{rem}
+
+\begin{defn}
+  \label{defn:efficient estimator}
+  Any unbiased estimator that saturates the Cramér-Rao lower bound is
+  called efficient, i.e.
+  \begin{equation}
+    \sigma_{\rm{est}}^{2} =1/I_{\rm{F}}(s).
+  \end{equation}
+\end{defn}
+\begin{thm}
+ $I_{\rm{F}}(s)$ grows linearly with $N$, and the ML estimate obeys a
+central limit theorem, so that $N^{1/2}(s_{\rm{ML}}-s)$ is Gaussian
+distributed with a variance that is independent of $N$ in the large
+$N$ limit. In the limit
+$N \rightarrow \infty$, the ML estimate is asymptotically consistent, in the sense that
+$P[|s_{\rm{ML}}-s|>\varepsilon]\rightarrow 0$ for any $\varepsilon >0$.
+\end{thm}
+
+\begin{exm}
+  The Fisher information for a population of neurons with uniformly
+  arrayed tuning curves (the Gaussian array in example \ref{exm:Gaussian tuning curves} for example) and
+Poisson statistics can be computed from the conditional firing-rate probability in Equation \ref{eq:3.31}. Because the spike-count rate is
+described here by a probability rather than a probability density, we
+use the discrete analog of Equation \ref{eq:3.42},
+\begin{equation}
+  \label{eq:3.44}
+  I_{\rm{F}}(s)=\left\langle
+    -\frac{\partial^{2}\ln p[\mathbf{r}|s]}{\partial s^{2}}
+  \right\rangle=T\sum\limits_{a=1}\limits^N {\left\langle r_{a} \right\rangle{\left(\left( \frac{f_a'(s)}{f_a(s)} \right)^{2}-\frac{f_a''(s)}{f_a(s)}\right)}}.
+  \end{equation}
+If we assume that the array of tuning curves is symmetric, like the Gaussian array in example \ref{exm:Gaussian tuning curves}, the second term
+in the parentheses of the last expression sums to $0$. We can also
+make the replacement $\left\langle r_{a}
+\right\rangle=f_a(s)$, producing the final result
+\begin{equation}
+  \label{eq:3.45}
+  I_{\rm{F}}(s)=T\sum\limits_{a=1}\limits^N \frac{f_a'(s)^{2}}{f_a(s)}.
+\end{equation}
+In this expression, each neuron contributes an amount to the Fisher
+information proportional to the square of its tuning curve slope and inversely
+proportional to the average firing rate for the particular stimulus value being estimated.
+\end{exm}
+
+\begin{exm}
+  The Fisher information for a single neuron with a Gaussian tuning
+curve with $s=0$ and $\sigma_a=1$, and Poisson variability. The Fisher information (solid
+curve) has been divided by $r_{\max}T$, the peak firing rate of the tuning curve times
+the duration of the trial. The dashed curve shows the tuning curve scaled by $r_{\max}$.
+Note that the Fisher information is greatest where the slope of the tuning curve is
+highest, and vanishes at $s=0$, where the tuning curve peaks.
+
+\begin{center}
+  \includegraphics[scale = 0.4]{./png/3-11}
+\end{center}
+\end{exm}
+
+\begin{rem}
+  Individual neurons carry the most Fisher
+information in regions of their tuning curves where average firing rates
+are rapidly varying functions of the stimulus value, not where the firing
+rate is highest.
+\end{rem}
+\begin{rem}
+   The Fisher information can be used to derive an interesting result on the
+optimal widths of response tuning curves. Consider a population of neurons with tuning curves of identical shapes, distributed evenly over a
+range of stimulus values as in Example \ref{exm:Gaussian tuning curves}. Equation \ref{eq:3.45} indicates that the
+Fisher information will be largest if the tuning curves of individual neurons are rapidly varying (making the square of their derivatives large), and
+if many neurons respond (making the sum over neurons large). For typical neuronal response tuning curves, these two requirements are in conflict.
+If the population of neurons has narrow tuning curves,
+individual neural responses are rapidly varying functions of the stimulus,
+but few neurons respond. Broad tuning curves allow many neurons to
+respond, but the individual responses are not as sensitive to the stimulus
+value.
+\end{rem}
+\begin{exm}
+  To determine whether narrow or broad tuning curves produce the
+more accurate encodings, we consider a dense distribution of Gaussian
+tuning curves, all with $\sigma_a=\sigma_{r}$. Using such curves in
+Equation \ref{eq:3.45}, we find
+\begin{equation}
+  \label{eq:3.46}
+  I_{\rm{F}}(s)=T\sum\limits_{a=1}\limits^N
+  {\frac{r_{\max}(s-s_{a})^{2}}{\sigma_r^{4}}\exp \left( -\frac{1}{2}\left( \frac{s-s_{a}}{\sigma_{r}} \right)^{2} \right)}.
+\end{equation}
+\end{exm}
+
+\begin{prop}
+
+This expression can be approximated by replacing the sum over neurons
+with an integral over their preferred stimulus values and multiplying by a
+density factor $\rho_{s}$. The factor $\rho_{s}$ is the density with which the neurons cover
+the range of stimulus values, and it is equal to the number of neurons with
+preferred stimulus values lying within a unit range of $s$ values. Replacing
+the sum over $a$ with an integral over a continuous preferred stimulus parameter $\xi$ (which replaces $s_{a}$ ), we find
+\begin{equation}
+  \begin{aligned}
+    \label{eq:3.47}
+   I_{\rm{F}}(s)&=\rho_{s}T\int_{-\infty}^{\infty}{\frac{r_{\max}(s-\xi)^{2}}{\sigma_r^4}\exp\left(-\frac{1}{2}\left( \frac{s-\xi}{\sigma_r}\right)^{2} \right)}\\
+                  &=\frac{\sqrt{2\pi}\rho_{s}\sigma_rr_{\max}T}{\sigma_r^2}.
+  \end{aligned}
+\end{equation}
+The number of neurons that respond to a given stimulus value is
+roughly $\rho_{s}\sigma_r$, and the Fisher information is proportional to this number divided by the square of the
+tuning curve width seen from Equation \ref{eq:3.47}.Combining these factors, the Fisher information is inversely proportional to $\sigma_{r}$, and the encoding accuracy increases with narrower tuning curves.
+\end{prop}
+
+\begin{prop}
+  Consider a stimulus with
+$D$ parameters and suppose that the response tuning curves are products
+of identical Gaussians for each of these parameters. If the tuning curves
+cover the $D$-dimensional space of stimulus values with a uniform density $\rho_{s}$, the number of responding neurons for any stimulus value is proportional to $\rho_{s}\sigma_r^{D}$ and, using the same integral approximation as in equation (\ref{eq:3.47}), the Fisher information is
+\begin{equation}
+  I_{\rm{F}}=\frac{(2\pi)^{D/2}D\rho_{s}\sigma_r^{D}r_{\max}T}{\sigma_r^2}=(2\pi)^{D/2}D\rho_{s}\sigma_r^{D-2}r_{\max}T.
+\end{equation}
+\end{prop}
+
+\begin{rem}
+  The trade-off between the encoding accuracy of individual neurons and the
+number of responding neurons depends on the dimension of the stimulus space. Narrowing the tuning curves (making $\sigma_{r}$ smaller) increases the
+Fisher information for $D=1$, decreases it for $D > 2$, and has no impact if
+$D = 2$.
+\end{rem}
+
+\subsection{Optimal Discrimination}
+\begin{rem}
+   In the first part of this chapter, we considered discrimination between two
+values of a stimulus. An alternative to the procedures discussed there is
+simply to decode the responses and discriminate on the basis of the estimated stimulus values.
+\end{rem}
+\begin{prop}
+  Consider the case of discriminating between s
+and $s+\Delta s$ for small $\Delta s$. For large $N$, the average value of the difference
+between the ML estimates for the two stimulus values is equal to
+$\Delta s$ (because the estimate is unbiased) and the variance of each estimate (for small
+$\Delta s$) is $1/I_{\rm{F}}(s)$ . Thus, the discriminability, defined
+in Equation \ref{eq:3.4}, for the ML-based test is
+\begin{equation}
+  \label{eq:3.49}
+  d'=\Delta s \sqrt{I_{\rm{F}}(s)}.
+\end{equation}
+It can be known that the larger the Fisher information, the higher the discriminability.
+\end{prop}
+
+\begin{exc}
+  Proof that for small $s$, this discriminability is the same
+as that of the likelihood ratio test $Z(\mathbf{r})$ defined in Equation \ref{eq:3.47}.
+\end{exc}
+
+
+
+\begin{exm}
+  The figure makes a comparison of Fisher information and discrimination thresholds for
+orientation tuning.The solid curve is the minimum standard deviation of an estimate of orientation angle from the Cramér-Rao bound, plotted as a function of the
+number of neurons $(N)$ involved in the estimation. The triangles are data points
+from an experiment that determined the threshold for discrimination of
+the orientation of line images by human subjects.
+\begin{center}
+   \includegraphics[scale = 0.6]{./png/3-12}
+\end{center}
+\end{exm}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 %%% Local Variables:
 %%% mode: latex

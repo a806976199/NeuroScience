@@ -1,33 +1,55 @@
-\section{3.1}
-\label{sec:3.1}
+\section{Encoding and Decoding}
+\label{sec:Encoding and Decoding}
 
-% \begin{defn}
-%   The \emph{angular momentum},
-%   also called \emph{moment of momentum} $\mathbf{L}$,
-%   is the cross product of a moment arm $\mathbf{r}$ and
-%   the linear momentum $m \mathbf{V}$ of a fluid particle,
-%   i.e.,
-%   \begin{equation}
-%     \mathbf{L} = \mathbf{r}\times m\mathbf{V}.
-%   \end{equation}
-% \end{defn}
-% \begin{center}
-%   \includegraphics[scale=0.45]{./png/angularMomentumDefn}
-% \end{center}
+\begin{ntn}
+  \label{ntn:probablity}
+  Several different probabilities and conditional
+  probabilities enter into our discussion. The probabilities we need are:
+  \begin{itemize}
+  \item $P[s]$, the probability of stimulus $s$ being presented,
+    often called the prior probability.
+  \item $P[\mathbf{r}]$, the probability of response $\mathbf{r}$
+    being recorded independent of what stimulus was used.
+  \item $P[\mathbf{r},s]$, the probability of stimulus $s$ being
+    presented and response $\mathbf{r}$ being recorded. This is called the
+    joint probability.
+  \item $P[\mathbf{r}|s]$, the conditional probability of evoking response $\mathbf{r}$, given that
+    stimulus $s$ was presented.
+  \item $P[s|\mathbf{r}]$, the conditional probability that stimulus $s$ was presented,
+    given that response $\mathbf{r}$ was recorded.
+  \end{itemize}
+  Here $\mathbf{r}=(r_1,r_2,\cdots,r_N)$ for $N$ neurons is a list of spike-count fring rates.
+\end{ntn}
 
-\begin{prin}[Conservation of angular momentum]
-  \label{prin:angularMomentum}
-  The rate of change of angular momentum of a system is equal to
-  the net torque acting on the system,
-  i.e.,
-  \begin{equation}
-    \frac{\dif \mathbf{L}}{\dif t} = \boldsymbol\tau,
-  \end{equation}
-  where $\boldsymbol\tau$ is the torque of all external forces on the system
-  about any chosen axis,
-  and $\dif \mathbf{L}/\dif t$ is the rate of change of
-  angular momentum of the system about the same axis.
-\end{prin}
+\begin{ntn}
+  \label{encoding and decoding}
+  The \emph{encoding} is characterized by the set of probabilities
+  $P[\mathbf{r}|s]$ for all stimuli and responses, with which we
+  considered the problem of predicting neural responses to known
+  stimuli. The \emph{decoding} a response is to determine the probabilities
+  $P[s|\mathbf{r}]$ which reflects what is going on in the real world from neuronal spiking patterns.
+\end{ntn}
+
+\begin{thm}
+  \label{Bayes theorem}
+  \emph{Bayes theorem} relating $P[s|\mathbf{r}]$ to $P[s|\mathbf{r}]$:
+  \begin{equation*}
+    \label{eq:Bayes}
+   P[s|\mathbf{r}]=\frac{P[\mathbf{r}|s]P[s]}{P[\mathbf{r}]}.
+ \end{equation*}
+\end{thm}
+
+\begin{rem}
+  According to Bayes theorem,  $P[s|\mathbf{r}]$ can be obtained from $P[\mathbf{r}|s]$, but the stimulus probability $P[s]$ is also needed. As a result, decoding requires knowledge of the statistical properties of experimentally or naturally occurring stimuli.
+\end{rem}
+
+\begin{rem}
+  We sometimes treat the response fring rates or the stimulus values as continuous variables. In this case, the probabilities listed must be replaced by
+the corresponding probability densities,
+$p[\mathbf{r}]$, $p[\mathbf{r}|s]$, etc.
+
+\end{rem}
+
 
 %%% Local Variables:
 %%% mode: latex

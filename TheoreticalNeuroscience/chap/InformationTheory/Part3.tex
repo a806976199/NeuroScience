@@ -1,0 +1,54 @@
+\section{Entropy and Information for Spike Trains}
+\label{sec:Entropy and Information for Spike Trains}
+
+The previous discussions were all conducted under the rate code (or,
+in other words, spike independent code) approach. This is of course a
+convenient simplification, but it is also conceivable that a different
+conclusion must be drawn if one looks at the amount of information
+from the perspective of the spike train. There are two perspectives
+here: the first is from the spike time, and the second is from the
+ISI. Let's start with the ISI perspective.\\
+
+For the spike sequnence, the longer the total length of the spike
+sequnence, the more information it contains. So we consider the
+information rate, rather than directly consider the amount of
+information. If each ISI is independent of each other and obeys the
+same distribution (iid), then the information volume of the entire
+firing sequence should be the distribution of each ISI, multiplied by
+the total number of pulses and then divided by the total duration of
+the time pulse, it is Information transfer rate. For example, a
+uniform Poisson pulse train satisfies the condition that all ISI
+distributions are the same and independent.\\
+
+If each ISI is not independent of each other, the information rate
+obtained by above method must be higher than the actual one. At this
+point, we need to consider not only individual ISI, but also the joint
+distribution of several consecutive ISIs. A method similar to a
+sliding window can be used, and the statistics are in a sliding window
+with a step size of 1 and a window width of $T_s/\Delta t$, and each
+window is a string B that is fired/not fired. Next, it is enough to
+count the distribution of B, and the final information transmission
+rate can be directly obtained from the distribution of B.\\
+
+So, how to determine the time length $T_s$ of the sliding window?
+There is a contradiction here. If $T_s$ is too large, then a
+finite-length spike squence cannot provide a sufficient number of
+sliding windows to estimate the distribution of B; if it is too small,
+the distance between different sliding windows will be too small,
+which unessential orrelations are created between related sliding
+windows. Similar to the case of a single ISI, $T_s$ being too small
+will cause the estimated value of the information transmission rate to
+be larger than the actual value.\\
+
+Of course, the above are all calculated with a fixed sampling rate. If
+we keep increasing the sampling rate of the firing sequence, we will
+get infinite information entropy. However, the reality is that the
+spike time is affected by various noises, and even the same input, the
+spike time  will fluctuate slightly. This fluctance reflects the accuracy of the neuron firing itself. If we really continue to increase the sampling rate of firing detection, the final result of the firing rate should tend to a finite value (assuming that the information entropy rate caused by noise is subtracted).
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../notesOnFluidMechanics"
+%%% End:
