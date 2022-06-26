@@ -2,7 +2,7 @@
 \label{sec:ReverseCorrelationMethodsForSimpleCells}
 \begin{defn}
   \label{def: spikeTriggeredAverage}
-  Given the light intensity of a visual image $s(s,y,t)$ and a spike sequence $\{t_i\}_{i = 1}^n$, the \emph{spike-triggered average stimulus}  is a function of three variables
+  Given the light intensity of a visual image $s(x,y,t)$ and a spike sequence $\{t_i\}_{i = 1}^n$, the \emph{spike-triggered average stimulus}  is a function of three variables
   \begin{equation}
     \label{equ:2.21}
     C(x,y,\tau) = \frac{1}{\left<n\right>}\left<\sum\limits_{i = 1}^ns(x,y,t_i-\tau)\right>,
@@ -41,7 +41,7 @@
   Suppose that the contributions from linear response estimate different spatial points sum linearly, the \emph{linear response estimate} $L(t)$ is obtained by integrating over all $x$ and $y$ values:
   \begin{equation}
     \label{equ:2.24}
-    L(t) = \int_0^{\infty}\iint D(s,y,\tau)s(x,y,t-\tau)dxdyd\tau,
+    L(t) = \int_0^{\infty}\iint D(x,y,\tau)s(x,y,t-\tau)dxdyd\tau,
   \end{equation}
   where the kernel $D(x,y,\tau)$ determines how strongly, and with what sign, the visual stimulus at the point $(x,y)$ and at time $t-\tau$ affects the firing rate of the neuron at time $t$.
 \end{defn}

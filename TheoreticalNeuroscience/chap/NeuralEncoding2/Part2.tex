@@ -92,8 +92,8 @@
   \begin{displaymath}
     \begin{aligned}
       &\frac{1}{T}\int_0^{T}(r(t)-r_0)s(t-\tau)dt\\
-      &= \frac{1}{T}\int_0^{T}r(t)s(t-\tau)dt + r_0\frac{1}{T}\int_0^{T}s(t-\tau)dt\\
-      &= \frac{1}{T}\int_0^{T}r(t)s(t-\tau)dt = Q_{ss}(-\tau),
+      &= \frac{1}{T}\int_0^{T}r(t)s(t-\tau)dt - r_0\frac{1}{T}\int_0^{T}s(t-\tau)dt\\
+      &= \frac{1}{T}\int_0^{T}r(t)s(t-\tau)dt = Q_{rs}(-\tau),
     \end{aligned}
   \end{displaymath}
   where the second step follows from Assumption \ref{asm:stimulus}.
@@ -119,7 +119,7 @@
   where $C(\tau)$ is the spike-triggered average stimulus and $\left<r\right>$ is the average firing rate of the neuron.
 \end{prop}
 \begin{proof}
-  The left side of Equation \ref{equ:2.4} equals to
+  By properties of the white-noise stimulus, the left side of Equation \ref{equ:2.4} equals to
   \begin{equation}
     \label{equ:2.5}
     \sigma_s^2\int_0^{\infty}\delta(\tau-\tau')D(\tau')d\tau' = \sigma_s^2D(\tau).
@@ -129,7 +129,7 @@
     \label{equ:2.6}
     D(\tau) = \frac{Q_{rs}(-\tau)}{\sigma_s^2} = \frac{\left<r\right>C(\tau)}{\sigma_s^2},
   \end{equation}
-  where the second step follows from the relation $Q_{rs}(-\tau) = \left<r\right>C(\tau)$ from chapter\ref{cha:Neural Encoding I}.
+  where the second step follows from the relation $Q_{rs}(-\tau) = \left<r\right>C(\tau)$ from chapter \ref{cha:Neural Encoding I}.
 \end{proof}
 
 \begin{prop}
@@ -143,7 +143,7 @@
 \end{prop}
 
 \begin{proof}
-  The result could be obtained by the method of Fourier transforms.
+  The result could be obtained by the method of Fourier transforms (see \emph{Theoretical Neuroscience} Chapter 2 Appendix A for the detailed proof).
 \end{proof}
 
 \begin{exm}
